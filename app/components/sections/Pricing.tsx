@@ -109,7 +109,7 @@ const PlanCard = memo(function PlanCard({ plan, waLink }: PlanCardProps) {
       {/* Price */}
       <div className="mb-3 flex items-baseline gap-1.5">
         <span className={`text-4xl font-black tracking-tight leading-none ${isPopular ? "text-white" : "text-gray-900"}`}>
-          {plan.price === "Sesuai" ? plan.price : `Rp ${plan.price}`}
+          {String(plan.price) === "Sesuai" ? plan.price : `Rp ${plan.price}`}
         </span>
         <span className={`text-sm font-medium ${isPopular ? "text-blue-200" : "text-gray-400"}`}>
           {plan.unit}
