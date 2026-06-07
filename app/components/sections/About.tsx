@@ -12,7 +12,7 @@ import { Shield, Clock, Heart, Users, Award, Zap } from "lucide-react";
   "https://wa.me/6282319216326?text=Halo%2C%20saya%20ingin%20konsultasi%20gratis";
 
 const values = [
-  { icon: Shield, title: "Terpercaya",      desc: "Sudah dipercaya 30+ klien UMKM di Indonesia" },
+  { icon: Shield, title: "Terpercaya",      desc: "Sudah dipercaya 8+ klien UMKM di Indonesia" },
   { icon: Clock,  title: "Tepat Waktu",     desc: "Pengerjaan sesuai deadline yang disepakati" },
   { icon: Heart,  title: "Ramah",           desc: "Konsultasi tanpa tekanan, kami siap membantu" },
   { icon: Users,  title: "Tim Profesional", desc: "Dikerjakan oleh developer berpengalaman" },
@@ -21,7 +21,7 @@ const values = [
 ] as const;
 
 const stats = [
-  { n: "6+",  label: "Project selesai" },
+  { n: "8+",  label: "Project selesai" },
   { n: "100%", label: "Klien puas" },
   { n: "≤17",  label: "Hari pengerjaan" },
   { n: "24/7", label: "Dukungan" },

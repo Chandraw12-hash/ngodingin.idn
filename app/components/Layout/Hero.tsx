@@ -42,7 +42,7 @@ const SERVICES: { label: string; icon: React.ElementType }[] = [
 ];
 
 const STATS = [
-  { n: "6+",  sub: "project selesai",   accent: "#2563eb" },
+  { n: "8+",  sub: "project selesai",   accent: "#2563eb" },
   { n: "100%", sub: "klien puas",        accent: "#10b981" },
   { n: "≤17d", sub: "rata-rata selesai", accent: "#7c3aed" },
 ] as const;

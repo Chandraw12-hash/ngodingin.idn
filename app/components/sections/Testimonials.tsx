@@ -9,21 +9,21 @@ import { Star, Quote } from "lucide-react";
 
 const testimonials = [
   {
-    name: "Ahmad Rizki",
-    role: "Owner Warung Kopi Kenangan",
-    text: "Website yang dibuat sangat profesional dan cepat. Setelah pakai website ini, omzet saya naik 40% dalam 3 bulan.",
+    name: "Rizal Maulana",
+    role: "Owner UMKM Kuliner, Bandung",
+    text: "Hasilnya rapi dan profesional banget. Prosesnya juga cepet, komunikasi lancar dari awal sampai selesai. Rekomen banget buat yang mau punya website!",
     rating: 5,
   },
   {
-    name: "Siti Nurjanah",
-    role: "Founder Fashion Store",
-    text: "Pelayanannya ramah dan hasilnya sesuai ekspektasi. Toko online saya sekarang lebih terpercaya di mata pelanggan.",
+    name: "Dewi Sartika",
+    role: "Pemilik Toko Fashion Lokal",
+    text: "Awalnya ragu mau bikin website, tapi setelah konsultasi langsung paham. Website-nya sesuai ekspektasi, desain clean dan enak dilihat.",
     rating: 5,
   },
   {
-    name: "Budi Santoso",
-    role: "Property Agent",
-    text: "Proses cepat, kurang dari 14 hari website sudah jadi. Desainnya modern dan tampil sempurna di semua perangkat.",
+    name: "Fajar Nugroho",
+    role: "Mahasiswa & Pelaku UMKM",
+    text: "Dikerjain beneran dari nol, bukan template asal pakai. Codenya juga rapi jadi gampang kalau mau dikembangin lagi ke depannya.",
     rating: 5,
   },
 ] as const;
@@ -88,7 +88,6 @@ const TestimonialCard = memo(function TestimonialCard({
 
       {/* Author */}
       <div className="flex items-center gap-3">
-        {/* Avatar initials */}
         <div
           aria-hidden
           className="w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center flex-shrink-0"
@@ -134,11 +133,11 @@ export default function Testimonials() {
             Apa Kata Mereka?
           </h2>
           <p className="text-gray-500 text-sm leading-relaxed max-w-xl mx-auto">
-            Dipercaya oleh 30+ klien UMKM di seluruh Indonesia.
+            Dipercaya oleh 8+ klien UMKM dan pelaku bisnis lokal Indonesia.
           </p>
         </div>
 
-        {/* Grid — 1 kolom mobile, 3 kolom desktop */}
+        {/* Grid */}
         <ul
           className="grid grid-cols-1 md:grid-cols-3 gap-6"
           role="list"
