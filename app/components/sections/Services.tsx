@@ -2,154 +2,131 @@
 
 import { memo } from "react";
 import {
-  Code2,
-  ShoppingCart,
-  Layout,
+  Building2,
+  School,
+  Rocket,
   Smartphone,
-  Zap,
+  Gauge,
   Headphones,
-  CheckCircle2,
 } from "lucide-react";
 
 // ─────────────────────────────────────────────────────────────────────────────
-// DATA
+// DATA — 3 layanan inti (yang dipesan klien)
 // ─────────────────────────────────────────────────────────────────────────────
 
-const services: {
+const coreServices: {
+  number: string;
   icon: React.ElementType;
   title: string;
   desc: string;
-  features: string[];
 }[] = [
   {
-    icon: Code2,
+    number: "01",
+    icon: Building2,
     title: "Company Profile",
-    desc: "Website profesional untuk memperkenalkan bisnis Anda secara online.",
-    features: ["Profil Perusahaan", "Galeri Foto", "Kontak & Maps"],
+    desc: "Tampilkan profil bisnis, layanan, dan portofolio Anda secara profesional di satu tempat.",
   },
   {
-    icon: ShoppingCart,
-    title: "Toko Online",
-    desc: "Platform e-commerce lengkap untuk jualan produk digital atau fisik.",
-    features: ["Katalog Produk", "Keranjang Belanja", "Integrasi WhatsApp"],
+    number: "02",
+    icon: School,
+    title: "Website Sekolah & Instansi",
+    desc: "Website resmi dengan manajemen berita, data guru/siswa, galeri, dan dashboard admin.",
   },
   {
-    icon: Layout,
+    number: "03",
+    icon: Rocket,
     title: "Landing Page",
-    desc: "Halaman khusus untuk campaign marketing dengan konversi tinggi.",
-    features: ["Call to Action", "Form Lead", "Analytics"],
-  },
-  {
-    icon: Smartphone,
-    title: "Responsive Design",
-    desc: "Website yang tampil sempurna di desktop, tablet, dan smartphone.",
-    features: ["Mobile First", "Touch Friendly", "Fast Loading"],
-  },
-  {
-    icon: Zap,
-    title: "Performa Cepat",
-    desc: "Optimasi kecepatan loading untuk pengalaman pengguna terbaik.",
-    features: ["Score 90+", "Image Optimized", "Cache System"],
-  },
-  {
-    icon: Headphones,
-    title: "Dukungan 24/7",
-    desc: "Tim support siap membantu kapanpun Anda membutuhkan bantuan.",
-    features: ["Fast Response", "Maintenance", "Training"],
+    desc: "Halaman fokus konversi untuk campaign, promo, atau peluncuran produk baru.",
   },
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
-// TYPES
+// DATA — yang otomatis didapat di setiap paket
 // ─────────────────────────────────────────────────────────────────────────────
 
-interface ServiceCardProps {
+const included: {
+  icon: React.ElementType;
+  label: string;
+}[] = [
+  { icon: Smartphone,  label: "Responsive di semua device" },
+  { icon: Gauge,       label: "Loading cepat & teroptimasi" },
+  { icon: Headphones,  label: "Support pasca-launch" },
+];
+
+// ─────────────────────────────────────────────────────────────────────────────
+// CORE SERVICE CARD
+// ─────────────────────────────────────────────────────────────────────────────
+
+interface CoreCardProps {
+  number: string;
   icon: React.ElementType;
   title: string;
   desc: string;
-  features: string[];
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// CARD
-// ─────────────────────────────────────────────────────────────────────────────
-
-const ServiceCard = memo(function ServiceCard({
+const CoreServiceCard = memo(function CoreServiceCard({
+  number,
   icon: Icon,
   title,
   desc,
-  features,
-}: ServiceCardProps) {
+}: CoreCardProps) {
   return (
-  <article
-  aria-label={title}
-  className="
-    h-full
-    flex flex-col
-    group
-        p-5 sm:p-6
-        rounded-xl
+    <article
+      aria-label={title}
+      className="
+        group relative flex flex-col
+        p-8 sm:p-9
+        rounded-2xl
         bg-white
-        border border-gray-100
-        hover:border-blue-200
-        hover:shadow-lg
-        hover:-translate-y-0.5
+        border border-slate-100
+        hover:border-slate-200
+        hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)]
         transition-all duration-300
-        focus-within:border-blue-200
       "
     >
+      {/* Number watermark */}
+      <span
+        aria-hidden
+        className="
+          absolute top-6 right-7
+          font-black text-slate-50
+          group-hover:text-blue-50
+          transition-colors duration-300
+          select-none
+        "
+        style={{ fontSize: 56, lineHeight: 1, letterSpacing: "-0.04em" }}
+      >
+        {number}
+      </span>
+
       {/* Icon */}
       <div
         aria-hidden
         className="
-          w-12 h-12 mb-4 rounded-lg
-          bg-blue-50 group-hover:bg-blue-500
+          relative z-10
+          w-11 h-11 mb-6 rounded-xl
+          bg-slate-50 group-hover:bg-blue-600
           flex items-center justify-center
           transition-colors duration-300
         "
       >
         <Icon
-          size={22}
+          size={20}
           aria-hidden
-          className="
-            text-blue-600
-            group-hover:text-white
-            transition-colors duration-300
-          "
+          strokeWidth={2}
+          className="text-slate-700 group-hover:text-white transition-colors duration-300"
         />
       </div>
 
       {/* Title */}
-      <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">
+      <h3 className="relative z-10 text-lg font-bold text-slate-900 mb-2 tracking-tight">
         {title}
       </h3>
 
       {/* Description */}
-      <p className="text-gray-500 text-sm leading-relaxed mb-4">
+      <p className="relative z-10 text-slate-500 text-sm leading-relaxed">
         {desc}
       </p>
-
-      {/* Features */}
-      <ul
-  className="space-y-1 mt-auto"
-  role="list"
-  aria-label={`Fitur ${title}`}
-      >
-        {features.map((feature) => (
-          <li
-            key={feature}
-            role="listitem"
-            className="flex items-center gap-2 text-xs text-gray-400"
-          >
-            <CheckCircle2
-              size={12}
-              aria-hidden
-              className="text-blue-500 flex-shrink-0"
-            />
-            {feature}
-          </li>
-        ))}
-      </ul>
     </article>
   );
 });
@@ -163,67 +140,66 @@ export default function Services() {
     <section
       id="layanan"
       aria-labelledby="services-heading"
-      className="py-16 sm:py-20 lg:py-24 px-4 bg-white"
+      className="py-20 sm:py-24 lg:py-28 px-4 bg-white"
     >
       <div className="max-w-6xl mx-auto">
 
         {/* Header */}
-        <div className="text-center mb-10 sm:mb-14">
+        <div className="text-center mb-14 sm:mb-16">
           <span
             aria-hidden
-            className="
-              text-sm
-              font-semibold
-              text-blue-600
-              uppercase
-              tracking-wider
-            "
+            className="text-[11px] font-bold tracking-[0.2em] uppercase text-blue-600 mb-3 block"
           >
             Layanan Kami
           </span>
 
           <h2
             id="services-heading"
-            className="
-              text-2xl
-              sm:text-3xl
-              md:text-4xl
-              font-bold
-              text-gray-900
-              mt-2
-              mb-4
-            "
+            className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 mb-4 tracking-tight"
           >
             Solusi Lengkap untuk Bisnis Anda
           </h2>
 
-          <p className="text-gray-500 max-w-2xl mx-auto text-sm sm:text-base">
-            Dari company profile hingga toko online, kami siap membantu
-            mewujudkan website impian Anda
+          <p className="text-slate-500 max-w-xl mx-auto text-sm sm:text-base leading-relaxed">
+            Dari company profile hingga toko online — kami bantu wujudkan
+            website yang sesuai kebutuhan bisnis Anda.
           </p>
         </div>
 
-        {/* Services */}
-       <ul
-  className="
-    grid
-    grid-cols-1
-    sm:grid-cols-2
-    lg:grid-cols-3
-    gap-6
-  "
-  role="list"
-  aria-label="Daftar layanan"
->
-  {services.map((service) => (
-    <li
-      key={service.title}
-      role="listitem"
-    >
-      <ServiceCard {...service} />
-    </li>
-  ))}
-</ul>
+        {/* Core services grid */}
+        <ul
+          className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-12"
+          role="list"
+          aria-label="Layanan inti"
+        >
+          {coreServices.map((service) => (
+            <li key={service.title} role="listitem">
+              <CoreServiceCard {...service} />
+            </li>
+          ))}
+        </ul>
+
+        {/* Included strip — bukan "layanan", tapi yang otomatis didapat */}
+        <div
+          className="
+            flex flex-col sm:flex-row items-center justify-center
+            gap-x-10 gap-y-4
+            py-6 px-8
+            rounded-2xl
+            bg-slate-50
+            border border-slate-100
+          "
+        >
+          <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider sm:border-r sm:border-slate-200 sm:pr-8">
+            Sudah termasuk
+          </span>
+          {included.map(({ icon: Icon, label }) => (
+            <div key={label} className="flex items-center gap-2">
+              <Icon size={15} strokeWidth={2} className="text-blue-600 flex-shrink-0" aria-hidden />
+              <span className="text-sm text-slate-600 font-medium">{label}</span>
+            </div>
+          ))}
+        </div>
 
       </div>
     </section>

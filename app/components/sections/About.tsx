@@ -1,29 +1,28 @@
 "use client";
 
 import { memo } from "react";
-import { Shield, Clock, Heart, Users, Award, Zap } from "lucide-react";
+import { Shield, Clock, Heart, Code2, Award, Zap } from "lucide-react";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // DATA
 // ─────────────────────────────────────────────────────────────────────────────
 
-// ⚠️ Ganti dengan nomor WA asli sebelum deploy!
-  const WA_HREF =
+const WA_HREF =
   "https://wa.me/6282319216326?text=Halo%2C%20saya%20ingin%20konsultasi%20gratis";
 
 const values = [
-  { icon: Shield, title: "Terpercaya",      desc: "Sudah dipercaya 8+ klien UMKM di Indonesia" },
-  { icon: Clock,  title: "Tepat Waktu",     desc: "Pengerjaan sesuai deadline yang disepakati" },
-  { icon: Heart,  title: "Ramah",           desc: "Konsultasi tanpa tekanan, kami siap membantu" },
-  { icon: Users,  title: "Tim Profesional", desc: "Dikerjakan oleh developer berpengalaman" },
-  { icon: Award,  title: "Berkualitas",     desc: "Kode bersih dan terstruktur dengan baik" },
-  { icon: Zap,    title: "Cepat",           desc: "Website dioptimalkan untuk performa terbaik" },
+  { icon: Shield, title: "Terpercaya",   desc: "Dipercaya 8+ klien UMKM & instansi di Indonesia" },
+  { icon: Clock,  title: "Tepat Waktu",  desc: "Pengerjaan sesuai deadline yang disepakati" },
+  { icon: Heart,  title: "Ramah",        desc: "Konsultasi tanpa tekanan, kami siap membantu" },
+  { icon: Code2,  title: "Fullstack",    desc: "Ditangani end-to-end, dari desain sampai deploy" },
+  { icon: Award,  title: "Berkualitas",  desc: "Kode bersih dan terstruktur dengan baik" },
+  { icon: Zap,    title: "Cepat",        desc: "Website dioptimalkan untuk performa terbaik" },
 ] as const;
 
 const stats = [
-  { n: "8+",  label: "Project selesai" },
+  { n: "8+",   label: "Project selesai" },
   { n: "100%", label: "Klien puas" },
-  { n: "≤17",  label: "Hari pengerjaan" },
+  { n: "≤14",  label: "Hari pengerjaan" },
   { n: "24/7", label: "Dukungan" },
 ] as const;
 
@@ -103,13 +102,14 @@ export default function About() {
               mahal dan rumit.
             </p>
             <p className="text-gray-600 leading-relaxed mb-4 text-sm">
-              Makanya kami hadir dengan harga terjangkau, proses mudah, dan hasil yang
-              memuaskan. Mulai dari konsultasi gratis hingga website siap online dalam
-              waktu singkat.
+              Setiap project ditangani secara <strong className="text-slate-900 font-semibold">fullstack</strong> —
+              dari desain antarmuka, pengembangan sistem, hingga deploy ke server — dengan
+              komunikasi langsung tanpa perantara.
             </p>
             <p className="text-gray-600 leading-relaxed text-sm">
-              Dengan pengalaman mengerjakan puluhan project, kami siap membantu bisnis
-              Anda tampil lebih profesional dan menjangkau lebih banyak pelanggan.
+              Dari company profile, toko online, hingga website resmi sekolah dan instansi —
+              kami siap membantu bisnis Anda tampil lebih profesional dan menjangkau lebih
+              banyak pelanggan.
             </p>
 
             {/* CTAs */}
