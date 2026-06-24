@@ -51,14 +51,14 @@ const projects = [
     link: "#",
   },
   {
-    id: 6,
-    title: "Porto Saya Sendiri",
-    category: "Portfolio",
-    description: "Website portfolio pribadi untuk menampilkan karya dan pengalaman profesional.",
-    tech: ["Next.js", "Tailwind CSS", "Framer Motion"],
-    image: "/portopolio/porto saya sendiri.png",
-    link: "https://porto-chandraw.vercel.app/",
-  },
+  id: 6,
+  title: "Porto Saya Sendiri",
+  category: "Portfolio",
+  description: "Website portfolio pribadi untuk menampilkan karya dan pengalaman profesional.",
+  tech: ["Next.js", "Tailwind CSS", "Framer Motion"],
+  image: "/portopolio/porto-saya-sendiri.png", // ← ganti ini
+  link: "https://porto-chandraw.vercel.app/",
+}
 ];
 
 const WA_LINK = "https://wa.me/6282319216326?text=Halo%2C%20saya%20ingin%20konsultasi%20gratis";
