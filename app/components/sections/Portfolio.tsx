@@ -16,12 +16,12 @@ const projects = [
   },
   {
     id: 2,
-    title: "Sistem Informasi Sekolah (SIS)",
-    category: "Dashboard Admin",
-    description: "Dashboard Admin untuk cek data siswa dan guru serta form pendfatran",
-    tech: ["Laravel", "MySQL", "Tailwind CSS"],
-    image: "/portopolio/porto2.png",
-    link: "#",
+    title: "Website Resmi SMP Negeri 3 Lubuk Pakam",
+    category: "Education",
+    description: "Website resmi sekolah berbasis Laravel 10 dengan fitur manajemen berita, galeri, data guru & siswa, dashboard admin interaktif, dan peta lokasi sekolah.",
+    tech: ["Laravel", "PHP", "MySQL", "Bootstrap", "Alpine.js"],
+    image: "/portopolio/smpn.png",
+    link: "https://smpnegeri3lubukpakam.sch.id",
   },
   {
     id: 3,
@@ -57,7 +57,7 @@ const projects = [
     description: "Website portfolio pribadi untuk menampilkan karya dan pengalaman profesional.",
     tech: ["Next.js", "Tailwind CSS", "Framer Motion"],
     image: "/portopolio/porto saya sendiri.png",
-    link: "#",
+    link: "https://porto-chandraw.vercel.app/",
   },
 ];
 

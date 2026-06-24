@@ -8,12 +8,12 @@ import { Star, Quote } from "lucide-react";
 // ─────────────────────────────────────────────────────────────────────────────
 
 const testimonials = [
-  {
-    name: "Rizal Maulana",
-    role: "Owner UMKM Kuliner, Bandung",
-    text: "Hasilnya rapi dan profesional banget. Prosesnya juga cepet, komunikasi lancar dari awal sampai selesai. Rekomen banget buat yang mau punya website!",
-    rating: 5,
-  },
+ {
+        name: "Tim Manajemen Sekolah",
+        role: "Kepala Sekolah SMP Negeri 3 Lubuk Pakam",
+        text: "Hasilnya rapi dan profesional banget. Prosesnya juga cepet, komunikasi lancar dari awal sampai selesai. Rekomen banget buat yang mau punya website!",
+        rating: 5
+    },
   {
     name: "Dewi Sartika",
     role: "Pemilik Toko Fashion Lokal",
