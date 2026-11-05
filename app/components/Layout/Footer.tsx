@@ -1,6 +1,7 @@
 "use client";
 
 import { Instagram, Github, Youtube, ArrowUpRight } from "lucide-react";
+import Reveal from "../ui/Reveal";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // DATA
@@ -8,7 +9,7 @@ import { Instagram, Github, Youtube, ArrowUpRight } from "lucide-react";
 
 // ⚠️ Ganti dengan nomor WA asli sebelum deploy!
 const WA_HREF =
-  "https://wa.me/6281234567890?text=Halo%2C%20saya%20ingin%20konsultasi%20gratis%20pembuatan%20website.";
+  "https://wa.me/6282319216326?text=Halo%2C%20saya%20ingin%20konsultasi%20gratis%20pembuatan%20website.";
 
 const links = {
   Layanan: [
@@ -88,7 +89,8 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* ── MAIN GRID ── */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 py-14 border-b border-slate-100">
+        <Reveal>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-10 py-14 border-b border-slate-100">
 
           {/* Brand column */}
           <div className="md:col-span-2">
@@ -158,7 +160,8 @@ export default function Footer() {
               </ul>
             </nav>
           ))}
-        </div>
+          </div>
+        </Reveal>
 
         {/* ── BOTTOM BAR ── */}
         <div className="py-6 flex flex-col sm:flex-row items-center justify-between gap-3">

@@ -2,6 +2,7 @@
 
 import { memo } from "react";
 import { Shield, Clock, Heart, Code2, Award, Zap } from "lucide-react";
+import Reveal from "../ui/Reveal";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // DATA
@@ -52,8 +53,8 @@ const ValueCard = memo(function ValueCard({
       >
         <Icon size={18} className="text-blue-600" aria-hidden />
       </div>
-      <h4 className="font-semibold text-gray-900 text-sm mb-1">{title}</h4>
-      <p className="text-gray-500 text-xs leading-relaxed">{desc}</p>
+      <h4 className="font-semibold text-slate-900 text-sm mb-1">{title}</h4>
+      <p className="text-slate-500 text-xs leading-relaxed">{desc}</p>
     </div>
   );
 });
@@ -72,41 +73,44 @@ export default function About() {
       <div className="max-w-6xl mx-auto">
 
         {/* Header */}
-        <div className="text-center mb-14">
-          <span
-            className="text-[11px] font-bold tracking-[0.2em] uppercase text-blue-600 mb-3 block"
-            aria-hidden
-          >
-            Tentang Kami
-          </span>
-          <h2
-            id="about-heading"
-            className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
-          >
-            Ngodingin.id — Partner Digital untuk UMKM
-          </h2>
-          <p className="text-gray-500 text-sm leading-relaxed max-w-xl mx-auto">
-            Kami percaya setiap bisnis berhak punya website profesional tanpa ribet.
-          </p>
-        </div>
+        <Reveal>
+          <div className="text-center mb-14">
+            <span
+              className="text-[11px] font-bold tracking-[0.2em] uppercase text-blue-600 mb-3 block"
+              aria-hidden
+            >
+              Tentang Kami
+            </span>
+            <h2
+              id="about-heading"
+              className="text-3xl md:text-4xl font-bold text-slate-900 mb-4"
+            >
+              Ngodingin.id — Partner Digital untuk UMKM
+            </h2>
+            <p className="text-slate-500 text-sm leading-relaxed max-w-xl mx-auto">
+              Kami percaya setiap bisnis berhak punya website profesional tanpa ribet.
+            </p>
+          </div>
+        </Reveal>
 
         {/* Two-column grid */}
         <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
 
           {/* Left — story */}
-          <div>
-            <p className="text-gray-600 leading-relaxed mb-4 text-sm">
+          <Reveal delay={80}>
+            <div>
+            <p className="text-slate-600 leading-relaxed mb-4 text-sm">
               <strong className="text-slate-900 font-semibold">Ngodingin.id</strong> hadir
               sebagai solusi pembuatan website untuk UMKM Indonesia yang ingin naik kelas.
               Kami paham bahwa memiliki website profesional itu penting, tapi sering terasa
               mahal dan rumit.
             </p>
-            <p className="text-gray-600 leading-relaxed mb-4 text-sm">
+            <p className="text-slate-600 leading-relaxed mb-4 text-sm">
               Setiap project ditangani secara <strong className="text-slate-900 font-semibold">fullstack</strong> —
               dari desain antarmuka, pengembangan sistem, hingga deploy ke server — dengan
               komunikasi langsung tanpa perantara.
             </p>
-            <p className="text-gray-600 leading-relaxed text-sm">
+            <p className="text-slate-600 leading-relaxed text-sm">
               Dari company profile, toko online, hingga website resmi sekolah dan instansi —
               kami siap membantu bisnis Anda tampil lebih profesional dan menjangkau lebih
               banyak pelanggan.
@@ -146,53 +150,58 @@ export default function About() {
               </a>
             </div>
           </div>
+          </Reveal>
 
           {/* Right — values grid */}
-          <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100">
-            <h3 className="text-base font-bold text-gray-900 mb-5 text-center">
-              Kenapa Pilih Kami?
-            </h3>
-            <ul
-              className="grid grid-cols-2 gap-3"
-              role="list"
-              aria-label="Keunggulan kami"
-            >
-              {values.map((item) => (
-                <li key={item.title} role="listitem">
-                  <ValueCard {...item} />
-                </li>
-              ))}
-            </ul>
-          </div>
+          <Reveal delay={160}>
+            <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100 h-full">
+              <h3 className="text-base font-bold text-slate-900 mb-5 text-center">
+                Kenapa Pilih Kami?
+              </h3>
+              <ul
+                className="grid grid-cols-2 gap-3"
+                role="list"
+                aria-label="Keunggulan kami"
+              >
+                {values.map((item) => (
+                  <li key={item.title} role="listitem">
+                    <ValueCard {...item} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Reveal>
 
         </div>
 
         {/* Stats bar */}
-        <div className="border-t border-slate-100 pt-10">
-          <ul
-            className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center"
-            role="list"
-            aria-label="Statistik kami"
-          >
-            {stats.map(({ n, label }) => (
-              <li
-                key={label}
-                role="listitem"
-                aria-label={`${n} ${label}`}
-              >
-                <p
-                  className="text-3xl font-black text-blue-600 tracking-tight leading-none mb-2"
-                  aria-hidden
+        <Reveal delay={80}>
+          <div className="border-t border-slate-100 pt-10">
+            <ul
+              className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center"
+              role="list"
+              aria-label="Statistik kami"
+            >
+              {stats.map(({ n, label }) => (
+                <li
+                  key={label}
+                  role="listitem"
+                  aria-label={`${n} ${label}`}
                 >
-                  {n}
-                </p>
-                <p className="text-gray-500 text-sm" aria-hidden>
-                  {label}
-                </p>
-              </li>
-            ))}
-          </ul>
-        </div>
+                  <p
+                    className="text-3xl font-black text-blue-600 tracking-tight leading-none mb-2"
+                    aria-hidden
+                  >
+                    {n}
+                  </p>
+                  <p className="text-slate-500 text-sm" aria-hidden>
+                    {label}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Reveal>
 
       </div>
     </section>

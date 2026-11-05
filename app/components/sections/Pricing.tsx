@@ -2,13 +2,14 @@
 
 import { Check } from "lucide-react";
 import { memo } from "react";
+import Reveal from "../ui/Reveal";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // DATA
 // ─────────────────────────────────────────────────────────────────────────────
 
 // ⚠️ Ganti dengan nomor WA asli sebelum deploy!
-const WA_NUMBER = "6281234567890";
+const WA_NUMBER = "6282319216326";
 
 const plans = [
   {
@@ -88,7 +89,7 @@ const PlanCard = memo(function PlanCard({ plan, waLink }: PlanCardProps) {
         transition-all duration-300 hover:-translate-y-1
         ${isPopular
           ? "bg-blue-600 text-white shadow-xl shadow-blue-200/50 border-2 border-blue-500"
-          : "bg-white border border-gray-100 shadow-sm hover:shadow-md"
+          : "bg-white border border-slate-100 shadow-sm hover:shadow-md"
         }
       `}
     >
@@ -108,26 +109,26 @@ const PlanCard = memo(function PlanCard({ plan, waLink }: PlanCardProps) {
 
       {/* Price */}
       <div className="mb-3 flex items-baseline gap-1.5">
-        <span className={`text-4xl font-black tracking-tight leading-none ${isPopular ? "text-white" : "text-gray-900"}`}>
+        <span className={`text-4xl font-black tracking-tight leading-none ${isPopular ? "text-white" : "text-slate-900"}`}>
           {String(plan.price) === "Sesuai" ? plan.price : `Rp ${plan.price}`}
         </span>
-        <span className={`text-sm font-medium ${isPopular ? "text-blue-200" : "text-gray-400"}`}>
+        <span className={`text-sm font-medium ${isPopular ? "text-blue-200" : "text-slate-400"}`}>
           {plan.unit}
         </span>
       </div>
 
       {/* Duration — text only, no badge/sticker */}
-      <p className={`text-xs font-medium mb-4 ${isPopular ? "text-blue-200" : "text-gray-400"}`}>
+      <p className={`text-xs font-medium mb-4 ${isPopular ? "text-blue-200" : "text-slate-400"}`}>
         Selesai dalam {plan.duration}
       </p>
 
       {/* Description */}
-      <p className={`text-sm leading-relaxed mb-6 ${isPopular ? "text-blue-100" : "text-gray-500"}`}>
+      <p className={`text-sm leading-relaxed mb-6 ${isPopular ? "text-blue-100" : "text-slate-500"}`}>
         {plan.description}
       </p>
 
       {/* Divider */}
-      <div className={`h-px mb-6 ${isPopular ? "bg-blue-500/60" : "bg-gray-100"}`} aria-hidden />
+      <div className={`h-px mb-6 ${isPopular ? "bg-blue-500/60" : "bg-slate-100"}`} aria-hidden />
 
       {/* Features */}
       <ul
@@ -142,7 +143,7 @@ const PlanCard = memo(function PlanCard({ plan, waLink }: PlanCardProps) {
               aria-hidden
               className={`flex-shrink-0 mt-0.5 ${isPopular ? "text-blue-300" : "text-blue-500"}`}
             />
-            <span className={isPopular ? "text-blue-50" : "text-gray-600"}>
+            <span className={isPopular ? "text-blue-50" : "text-slate-600"}>
               {feature}
             </span>
           </li>
@@ -160,7 +161,7 @@ const PlanCard = memo(function PlanCard({ plan, waLink }: PlanCardProps) {
           transition-all duration-200 active:scale-[0.98]
           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2
           ${isPopular
-            ? "bg-white text-blue-600 hover:bg-gray-50 focus-visible:ring-white"
+            ? "bg-white text-blue-600 hover:bg-slate-50 focus-visible:ring-white"
             : "bg-blue-600 text-white hover:bg-blue-700 focus-visible:ring-blue-500"
           }
         `}
@@ -183,51 +184,57 @@ export default function Pricing() {
     <section
       id="harga"
       aria-labelledby="pricing-heading"
-      className="py-24 px-4 bg-gradient-to-b from-white to-gray-50"
+      className="py-24 px-4 bg-white"
     >
       <div className="max-w-6xl mx-auto">
 
         {/* Header */}
-        <div className="text-center mb-14">
-          <span
-            className="text-[11px] font-bold tracking-[0.2em] uppercase text-blue-600 mb-3 block"
-            aria-hidden
-          >
-            Harga Terjangkau
-          </span>
-          <h2
-            id="pricing-heading"
-            className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
-          >
-            Pilih Sesuai Kebutuhan
-          </h2>
-          <p className="text-gray-500 max-w-xl mx-auto text-sm leading-relaxed">
-            Mulai dari Rp 500rb untuk mahasiswa. Konsultasi gratis sebelum order.
-          </p>
-        </div>
+        <Reveal>
+          <div className="text-center mb-14">
+            <span
+              className="text-[11px] font-bold tracking-[0.2em] uppercase text-blue-600 mb-3 block"
+              aria-hidden
+            >
+              Harga Terjangkau
+            </span>
+            <h2
+              id="pricing-heading"
+              className="text-3xl md:text-4xl font-bold text-slate-900 mb-4"
+            >
+              Pilih Sesuai Kebutuhan
+            </h2>
+            <p className="text-slate-500 max-w-xl mx-auto text-sm leading-relaxed">
+              Mulai dari Rp 500rb untuk mahasiswa. Konsultasi gratis sebelum order.
+            </p>
+          </div>
+        </Reveal>
 
         {/* Grid */}
-        <ul
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-          role="list"
-          aria-label="Daftar paket harga"
-        >
-          {plans.map((plan) => (
-            <li key={plan.name} role="listitem" className="flex flex-col">
-              <PlanCard plan={plan} waLink={waLink} />
-            </li>
-          ))}
-        </ul>
+        <Reveal delay={100}>
+          <ul
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+            role="list"
+            aria-label="Daftar paket harga"
+          >
+            {plans.map((plan) => (
+              <li key={plan.name} role="listitem" className="flex flex-col">
+                <PlanCard plan={plan} waLink={waLink} />
+              </li>
+            ))}
+          </ul>
+        </Reveal>
 
         {/* Footnote */}
-        <div className="text-center mt-10 space-y-1">
-          <p className="text-xs text-gray-400">
-            * Harga untuk mahasiswa bisa nego &amp; cicil. Domain &amp; hosting bisa ditambahkan sesuai kebutuhan.
-          </p>
-          <p className="text-xs text-gray-400">
-            Hubungi kami via WhatsApp untuk konsultasi gratis — tim siap membantu.
-          </p>
-        </div>
+        <Reveal delay={80}>
+          <div className="text-center mt-10 space-y-1">
+            <p className="text-xs text-slate-400">
+              * Harga untuk mahasiswa bisa nego &amp; cicil. Domain &amp; hosting bisa ditambahkan sesuai kebutuhan.
+            </p>
+            <p className="text-xs text-slate-400">
+              Hubungi kami via WhatsApp untuk konsultasi gratis — tim siap membantu.
+            </p>
+          </div>
+        </Reveal>
 
       </div>
     </section>

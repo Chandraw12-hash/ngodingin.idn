@@ -9,6 +9,7 @@ import {
   Gauge,
   Headphones,
 } from "lucide-react";
+import Reveal from "../ui/Reveal";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // DATA — 3 layanan inti (yang dipesan klien)
@@ -74,7 +75,7 @@ const CoreServiceCard = memo(function CoreServiceCard({
     <article
       aria-label={title}
       className="
-        group relative flex flex-col
+        group relative flex flex-col h-full
         p-8 sm:p-9
         rounded-2xl
         bg-white
@@ -145,26 +146,28 @@ export default function Services() {
       <div className="max-w-6xl mx-auto">
 
         {/* Header */}
-        <div className="text-center mb-14 sm:mb-16">
-          <span
-            aria-hidden
-            className="text-[11px] font-bold tracking-[0.2em] uppercase text-blue-600 mb-3 block"
-          >
-            Layanan Kami
-          </span>
+        <Reveal>
+          <div className="text-center mb-14 sm:mb-16">
+            <span
+              aria-hidden
+              className="text-[11px] font-bold tracking-[0.2em] uppercase text-blue-600 mb-3 block"
+            >
+              Layanan Kami
+            </span>
 
-          <h2
-            id="services-heading"
-            className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 mb-4 tracking-tight"
-          >
-            Solusi Lengkap untuk Bisnis Anda
-          </h2>
+            <h2
+              id="services-heading"
+              className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 mb-4 tracking-tight"
+            >
+              Solusi Lengkap untuk Bisnis Anda
+            </h2>
 
-          <p className="text-slate-500 max-w-xl mx-auto text-sm sm:text-base leading-relaxed">
-            Dari company profile hingga toko online — kami bantu wujudkan
-            website yang sesuai kebutuhan bisnis Anda.
-          </p>
-        </div>
+            <p className="text-slate-500 max-w-xl mx-auto text-sm sm:text-base leading-relaxed">
+              Dari company profile hingga toko online — kami bantu wujudkan
+              website yang sesuai kebutuhan bisnis Anda.
+            </p>
+          </div>
+        </Reveal>
 
         {/* Core services grid */}
         <ul
@@ -172,34 +175,38 @@ export default function Services() {
           role="list"
           aria-label="Layanan inti"
         >
-          {coreServices.map((service) => (
+          {coreServices.map((service, i) => (
             <li key={service.title} role="listitem">
-              <CoreServiceCard {...service} />
+              <Reveal delay={i * 90} className="h-full">
+                <CoreServiceCard {...service} />
+              </Reveal>
             </li>
           ))}
         </ul>
 
         {/* Included strip — bukan "layanan", tapi yang otomatis didapat */}
-        <div
-          className="
-            flex flex-col sm:flex-row items-center justify-center
-            gap-x-10 gap-y-4
-            py-6 px-8
-            rounded-2xl
-            bg-slate-50
-            border border-slate-100
-          "
-        >
-          <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider sm:border-r sm:border-slate-200 sm:pr-8">
-            Sudah termasuk
-          </span>
-          {included.map(({ icon: Icon, label }) => (
-            <div key={label} className="flex items-center gap-2">
-              <Icon size={15} strokeWidth={2} className="text-blue-600 flex-shrink-0" aria-hidden />
-              <span className="text-sm text-slate-600 font-medium">{label}</span>
-            </div>
-          ))}
-        </div>
+        <Reveal delay={120}>
+          <div
+            className="
+              flex flex-col sm:flex-row items-center justify-center
+              gap-x-10 gap-y-4
+              py-6 px-8
+              rounded-2xl
+              bg-slate-50
+              border border-slate-100
+            "
+          >
+            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider sm:border-r sm:border-slate-200 sm:pr-8">
+              Sudah termasuk
+            </span>
+            {included.map(({ icon: Icon, label }) => (
+              <div key={label} className="flex items-center gap-2">
+                <Icon size={15} strokeWidth={2} className="text-blue-600 flex-shrink-0" aria-hidden />
+                <span className="text-sm text-slate-600 font-medium">{label}</span>
+              </div>
+            ))}
+          </div>
+        </Reveal>
 
       </div>
     </section>

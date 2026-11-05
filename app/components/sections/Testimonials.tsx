@@ -2,6 +2,7 @@
 
 import { memo } from "react";
 import { Star, Quote } from "lucide-react";
+import Reveal from "../ui/Reveal";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // DATA
@@ -119,36 +120,40 @@ export default function Testimonials() {
       <div className="max-w-6xl mx-auto">
 
         {/* Header */}
-        <div className="text-center mb-14">
-          <span
-            className="text-[11px] font-bold tracking-[0.2em] uppercase text-blue-600 mb-3 block"
-            aria-hidden
-          >
-            Testimoni
-          </span>
-          <h2
-            id="testimonials-heading"
-            className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
-          >
-            Apa Kata Mereka?
-          </h2>
-          <p className="text-gray-500 text-sm leading-relaxed max-w-xl mx-auto">
-            Dipercaya oleh 8+ klien UMKM dan pelaku bisnis lokal Indonesia.
-          </p>
-        </div>
+        <Reveal>
+          <div className="text-center mb-14">
+            <span
+              className="text-[11px] font-bold tracking-[0.2em] uppercase text-blue-600 mb-3 block"
+              aria-hidden
+            >
+              Testimoni
+            </span>
+            <h2
+              id="testimonials-heading"
+              className="text-3xl md:text-4xl font-bold text-slate-900 mb-4"
+            >
+              Apa Kata Mereka?
+            </h2>
+            <p className="text-slate-500 text-sm leading-relaxed max-w-xl mx-auto">
+              Dipercaya oleh 8+ klien UMKM dan pelaku bisnis lokal Indonesia.
+            </p>
+          </div>
+        </Reveal>
 
         {/* Grid */}
-        <ul
-          className="grid grid-cols-1 md:grid-cols-3 gap-6"
-          role="list"
-          aria-label="Daftar testimoni klien"
-        >
-          {testimonials.map((item) => (
-            <li key={item.name} role="listitem">
-              <TestimonialCard {...item} />
-            </li>
-          ))}
-        </ul>
+        <Reveal delay={100}>
+          <ul
+            className="grid grid-cols-1 md:grid-cols-3 gap-6"
+            role="list"
+            aria-label="Daftar testimoni klien"
+          >
+            {testimonials.map((item) => (
+              <li key={item.name} role="listitem">
+                <TestimonialCard {...item} />
+              </li>
+            ))}
+          </ul>
+        </Reveal>
 
       </div>
     </section>

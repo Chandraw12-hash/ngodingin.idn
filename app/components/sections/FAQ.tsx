@@ -2,6 +2,7 @@
 
 import { useState, useCallback, memo } from "react";
 import { Plus, Minus } from "lucide-react";
+import Reveal from "../ui/Reveal";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // DATA
@@ -44,7 +45,7 @@ const faqs = [
 
 // ⚠️ Ganti dengan nomor WA asli sebelum deploy!
 const WA_HREF =
-  "https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20tanya%20lebih%20lanjut%20soal%20pembuatan%20website.";
+  "https://wa.me/6282319216326?text=Halo%2C%20saya%20mau%20tanya%20lebih%20lanjut%20soal%20pembuatan%20website.";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // FAQ ITEM
@@ -64,7 +65,7 @@ const FaqItem = memo(function FaqItem({ q, a, open, onToggle, index }: FaqItemPr
       className={`
         border rounded-xl overflow-hidden
         transition-all duration-200
-        ${open ? "border-blue-200 bg-blue-50/40" : "border-gray-100 bg-white hover:border-gray-200"}
+        ${open ? "border-blue-200 bg-blue-50/40" : "border-slate-100 bg-white hover:border-slate-200"}
       `}
     >
       <button
@@ -78,7 +79,7 @@ const FaqItem = memo(function FaqItem({ q, a, open, onToggle, index }: FaqItemPr
           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-inset
         "
       >
-        <span className={`text-sm font-semibold leading-snug ${open ? "text-blue-700" : "text-gray-900"}`}>
+        <span className={`text-sm font-semibold leading-snug ${open ? "text-blue-700" : "text-slate-900"}`}>
           {q}
         </span>
         <span
@@ -86,7 +87,7 @@ const FaqItem = memo(function FaqItem({ q, a, open, onToggle, index }: FaqItemPr
           className={`
             flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center
             transition-colors duration-200
-            ${open ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-400"}
+            ${open ? "bg-blue-600 text-white" : "bg-slate-100 text-slate-400"}
           `}
         >
           {open
@@ -107,7 +108,7 @@ const FaqItem = memo(function FaqItem({ q, a, open, onToggle, index }: FaqItemPr
         `}
       >
         <div className="overflow-hidden">
-          <p className="px-6 pb-5 text-sm text-gray-500 leading-relaxed">
+          <p className="px-6 pb-5 text-sm text-slate-500 leading-relaxed">
             {a}
           </p>
         </div>
@@ -137,59 +138,65 @@ export default function FAQ() {
       <div className="max-w-3xl mx-auto">
 
         {/* Header */}
-        <div className="text-center mb-12">
-          <span
-            className="text-[11px] font-bold tracking-[0.2em] uppercase text-blue-600 mb-3 block"
-            aria-hidden
-          >
-            FAQ
-          </span>
-          <h2
-            id="faq-heading"
-            className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
-          >
-            Pertanyaan yang Sering Ditanyakan
-          </h2>
-          <p className="text-gray-500 text-sm leading-relaxed max-w-xl mx-auto">
-            Tidak menemukan jawaban yang kamu cari? Langsung tanya via WhatsApp.
-          </p>
-        </div>
+        <Reveal>
+          <div className="text-center mb-12">
+            <span
+              className="text-[11px] font-bold tracking-[0.2em] uppercase text-blue-600 mb-3 block"
+              aria-hidden
+            >
+              FAQ
+            </span>
+            <h2
+              id="faq-heading"
+              className="text-3xl md:text-4xl font-bold text-slate-900 mb-4"
+            >
+              Pertanyaan yang Sering Ditanyakan
+            </h2>
+            <p className="text-slate-500 text-sm leading-relaxed max-w-xl mx-auto">
+              Tidak menemukan jawaban yang kamu cari? Langsung tanya via WhatsApp.
+            </p>
+          </div>
+        </Reveal>
 
         {/* FAQ List */}
-        <ul className="flex flex-col gap-3" role="list" aria-label="Daftar pertanyaan">
-          {faqs.map((faq, i) => (
-            <li key={faq.q} role="listitem">
-              <FaqItem
-                q={faq.q}
-                a={faq.a}
-                open={openIndex === i}
-                onToggle={handleToggle(i)}
-                index={i}
-              />
-            </li>
-          ))}
-        </ul>
+        <Reveal delay={100}>
+          <ul className="flex flex-col gap-3" role="list" aria-label="Daftar pertanyaan">
+            {faqs.map((faq, i) => (
+              <li key={faq.q} role="listitem">
+                <FaqItem
+                  q={faq.q}
+                  a={faq.a}
+                  open={openIndex === i}
+                  onToggle={handleToggle(i)}
+                  index={i}
+                />
+              </li>
+            ))}
+          </ul>
+        </Reveal>
 
         {/* CTA */}
-        <div className="text-center mt-12">
-          <p className="text-sm text-gray-400 mb-4">Masih ada pertanyaan lain?</p>
-          <a
-            href={WA_HREF}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Tanya via WhatsApp (buka tab baru)"
-            className="
-              inline-flex items-center gap-2
-              bg-blue-600 hover:bg-blue-700
-              text-white text-sm font-bold
-              px-6 py-3 rounded-xl
-              transition-all duration-200 active:scale-[0.98]
-              focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2
-            "
-          >
-            Tanya via WhatsApp
-          </a>
-        </div>
+        <Reveal delay={60}>
+          <div className="text-center mt-12">
+            <p className="text-sm text-slate-400 mb-4">Masih ada pertanyaan lain?</p>
+            <a
+              href={WA_HREF}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Tanya via WhatsApp (buka tab baru)"
+              className="
+                inline-flex items-center gap-2
+                bg-blue-600 hover:bg-blue-700
+                text-white text-sm font-bold
+                px-6 py-3 rounded-xl
+                transition-all duration-200 active:scale-[0.98]
+                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2
+              "
+            >
+              Tanya via WhatsApp
+            </a>
+          </div>
+        </Reveal>
 
       </div>
     </section>
