@@ -7,7 +7,9 @@ interface BadgeProps {
 
 export default function Badge({ children, className }: BadgeProps) {
   return (
-    <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-700 ${className || ""}`}>
+    <span
+      className={`inline-flex items-center gap-1.5 rounded border border-accent-soft bg-accent-soft px-3 py-1 font-mono text-[11px] uppercase tracking-[0.12em] text-accent ${className || ""}`}
+    >
       {children}
     </span>
   );

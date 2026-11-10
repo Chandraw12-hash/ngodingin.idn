@@ -1,22 +1,37 @@
 interface SectionHeaderProps {
-  badge?: string;
+  /** Nomor urut section, mis. "01" */
+  num: string;
+  /** Label kicker (monospace uppercase), mis. "Layanan" */
+  kicker: string;
   title: string;
   subtitle?: string;
-  center?: boolean;
+  id?: string;
 }
 
-export default function SectionHeader({ badge, title, subtitle, center = true }: SectionHeaderProps) {
+/**
+ * Header section ala porto-chandraw.vercel.app:
+ * kicker monospace bernomor + judul serif besar, rata kiri.
+ */
+export default function SectionHeader({ num, kicker, title, subtitle, id }: SectionHeaderProps) {
   return (
-    <div className={`mb-12 ${center ? "text-center" : ""}`}>
-      {badge && (
-        <div className={`mb-3 ${center ? "flex justify-center" : ""}`}>
-          <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
-            {badge}
-          </span>
-        </div>
+    <div className="mb-10 sm:mb-14">
+      <p
+        aria-hidden
+        className="font-mono text-[12px] uppercase tracking-[0.14em] text-faint"
+      >
+        <span className="mr-3 text-accent">{num}</span>
+        {kicker}
+      </p>
+
+      <h2 id={id} className="mt-4 text-3xl text-ink md:text-4xl">
+        {title}
+      </h2>
+
+      {subtitle && (
+        <p className="mt-4 max-w-[62ch] text-[15px] leading-[1.75] text-muted">
+          {subtitle}
+        </p>
       )}
-      <h2 className="text-3xl md:text-4xl font-bold text-slate-900 leading-tight">{title}</h2>
-      {subtitle && <p className="mt-3 text-lg text-slate-500 max-w-2xl mx-auto">{subtitle}</p>}
     </div>
   );
 }

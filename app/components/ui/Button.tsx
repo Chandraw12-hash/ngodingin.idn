@@ -8,10 +8,10 @@ interface ButtonProps {
 }
 
 export default function Button({ children, variant = "primary", href, className }: ButtonProps) {
-  const base = "inline-flex items-center gap-2 font-semibold rounded-lg transition-all duration-200 cursor-pointer px-5 py-2.5 text-sm";
+  const base = "inline-flex items-center gap-2 rounded px-5 py-3 text-[15px] font-semibold transition-all duration-200 hover:-translate-y-px";
   const variants = {
-    primary: "bg-blue-600 text-white hover:bg-blue-700",
-    outline: "border-2 border-blue-600 text-blue-600 hover:bg-blue-50",
+    primary: "bg-accent text-accent-ink hover:bg-accent-hover",
+    outline: "border border-line text-ink hover:border-accent hover:text-accent",
   };
 
   const classes = `${base} ${variants[variant]} ${className || ""}`;

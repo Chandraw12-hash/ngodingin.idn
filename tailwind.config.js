@@ -8,23 +8,31 @@ const config = {
   theme: {
     extend: {
       colors: {
-        brand: {
-          50: "#f0fdf4",
-          100: "#dcfce7",
-          200: "#bbf7d0",
-          300: "#86efac",
-          400: "#4ade80",
-          500: "#13a36e",
-          600: "#0f8a5d",
-          700: "#0c6b49",
-        },
+        // Palet portofolio — warm cream + satu aksen biru (senada logo NG)
+        bg: "var(--bg)",
+        surface: "var(--surface)",
+        ink: "var(--ink)",
+        muted: "var(--muted)",
+        faint: "var(--faint)",
+        line: "var(--line)",
+        "ink-20": "var(--ink-20)",
         accent: {
-          50: "#eff6ff",
-          100: "#dbeafe",
-          200: "#bfdbfe",
-          500: "#3b82f6",
-          600: "#2563eb",
+          DEFAULT: "var(--accent)",
+          hover: "var(--accent-hover)",
+          ink: "var(--accent-ink)",
+          soft: "var(--accent-soft)",
+          "ink-80": "var(--accent-ink-80)",
+          "ink-90": "var(--accent-ink-90)",
+          "ink-25": "var(--accent-ink-25)",
         },
+      },
+      fontFamily: {
+        sans: ["var(--font-body)", "system-ui", "sans-serif"],
+        display: ["var(--font-display)", "Georgia", "serif"],
+        mono: ["var(--font-mono)", "ui-monospace", "monospace"],
+      },
+      maxWidth: {
+        site: "1080px",
       },
     },
   },

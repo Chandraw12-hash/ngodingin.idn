@@ -1,5 +1,29 @@
 import type { Metadata } from "next";
+import { Poppins, Fraunces, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+
+// Body — Poppins (sama dengan portfolio)
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  variable: "--font-body",
+});
+
+// Heading — Fraunces, serif editorial (sama dengan portfolio)
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-display",
+});
+
+// Label kickers — JetBrains Mono
+const monoFont = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  display: "swap",
+  variable: "--font-mono",
+});
 
 export const metadata: Metadata = {
   title: "ngodingin.id — Solusi Website untuk UMKM Indonesia",
@@ -22,7 +46,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id">
+    <html lang="id" className={`${poppins.variable} ${fraunces.variable} ${monoFont.variable}`}>
       <body>{children}</body>
     </html>
   );

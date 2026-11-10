@@ -1,8 +1,8 @@
 "use client";
 
-import { Check } from "lucide-react";
 import { memo } from "react";
 import Reveal from "../ui/Reveal";
+import SectionHeader from "../ui/SectionHeader";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // DATA
@@ -14,24 +14,23 @@ const WA_NUMBER = "6282319216326";
 const plans = [
   {
     name: "Mahasiswa",
-    price: "500",
+    price: "Rp 500",
     unit: "rb",
     duration: "≤ 1 minggu",
     description: "Untuk portofolio, tugas akhir, atau UKM",
     features: [
       "Landing page / 1 halaman",
       "Desain modern & responsive",
-      "Form kontak / Tombol WhatsApp",
+      "Form kontak / tombol WhatsApp",
       "Revisi 2x",
       "Tanpa domain & hosting",
     ],
     popular: false,
-    buttonText: "Pilih Paket Ini",
     waMessage: "Halo, saya tertarik dengan paket Mahasiswa (Rp 500rb).",
   },
   {
     name: "Standar",
-    price: "1.2",
+    price: "Rp 1,2",
     unit: "jt",
     duration: "≤ 2 minggu",
     description: "Company profile + domain & hosting",
@@ -44,12 +43,11 @@ const plans = [
       "Revisi 3x",
     ],
     popular: true,
-    buttonText: "Pilih Paket Ini",
     waMessage: "Halo, saya tertarik dengan paket Standar (Rp 1.2jt).",
   },
   {
     name: "Profesional",
-    price: "3",
+    price: "Rp 3",
     unit: "jt",
     duration: "≤ 2 minggu",
     description: "Fitur custom sesuai kebutuhan bisnis kamu",
@@ -63,13 +61,12 @@ const plans = [
       "Fitur tambahan sesuai request",
     ],
     popular: false,
-    buttonText: "Konsultasi Gratis",
     waMessage: "Halo, saya tertarik dengan paket Profesional. Boleh konsultasi dulu?",
   },
 ] as const;
 
 // ─────────────────────────────────────────────────────────────────────────────
-// PLAN CARD
+// PLAN CARD — flat ala portfolio; popular = kartu aksen penuh
 // ─────────────────────────────────────────────────────────────────────────────
 
 interface PlanCardProps {
@@ -84,96 +81,98 @@ const PlanCard = memo(function PlanCard({ plan, waLink }: PlanCardProps) {
     <article
       aria-label={`Paket ${plan.name}`}
       className={`
-        relative rounded-2xl p-7
-        flex flex-col h-full
-        transition-all duration-300 hover:-translate-y-1
+        relative flex h-full flex-col rounded p-6 md:p-8
+        transition-transform duration-200 hover:-translate-y-px
         ${isPopular
-          ? "bg-blue-600 text-white shadow-xl shadow-blue-200/50 border-2 border-blue-500"
-          : "bg-white border border-slate-100 shadow-sm hover:shadow-md"
-        }
+          ? "bg-accent text-accent-ink"
+          : "border border-line bg-surface text-ink hover:border-accent"}
       `}
     >
-      {/* Popular badge — clean pill, no emoji */}
-      {isPopular && (
-        <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-          <span className="bg-slate-900 text-white text-[11px] font-bold px-4 py-1.5 rounded-full tracking-wide uppercase whitespace-nowrap">
-            Paling Diminati
-          </span>
-        </div>
-      )}
-
-      {/* Package name */}
-      <p className={`text-[11px] font-bold tracking-[0.15em] uppercase mb-4 ${isPopular ? "text-blue-200" : "text-blue-500"}`}>
+      {/* Nama paket — monospace */}
+      <p
+        aria-hidden
+        className={`font-mono text-[11px] uppercase tracking-[0.14em] ${
+          isPopular ? "text-accent-ink-80" : "text-faint"
+        }`}
+      >
+        {isPopular && <span className="mr-3">★</span>}
         {plan.name}
       </p>
 
-      {/* Price */}
-      <div className="mb-3 flex items-baseline gap-1.5">
-        <span className={`text-4xl font-black tracking-tight leading-none ${isPopular ? "text-white" : "text-slate-900"}`}>
-          {String(plan.price) === "Sesuai" ? plan.price : `Rp ${plan.price}`}
+      {/* Harga — serif besar */}
+      <div className="mt-5 flex items-baseline gap-1.5">
+        <span
+          className={`text-4xl leading-none md:text-[40px] ${
+            isPopular ? "text-accent-ink" : "text-ink"
+          }`}
+        >
+          {plan.price}
         </span>
-        <span className={`text-sm font-medium ${isPopular ? "text-blue-200" : "text-slate-400"}`}>
+        <span className={`text-sm font-medium ${isPopular ? "text-accent-ink-80" : "text-faint"}`}>
           {plan.unit}
         </span>
       </div>
 
-      {/* Duration — text only, no badge/sticker */}
-      <p className={`text-xs font-medium mb-4 ${isPopular ? "text-blue-200" : "text-slate-400"}`}>
+      {/* Durasi */}
+      <p className={`mt-2 text-xs font-medium ${isPopular ? "text-accent-ink-80" : "text-faint"}`}>
         Selesai dalam {plan.duration}
       </p>
 
-      {/* Description */}
-      <p className={`text-sm leading-relaxed mb-6 ${isPopular ? "text-blue-100" : "text-slate-500"}`}>
+      {/* Deskripsi */}
+      <p
+        className={`mt-4 text-sm leading-[1.75] ${
+          isPopular ? "text-accent-ink-90" : "text-muted"
+        }`}
+      >
         {plan.description}
       </p>
 
       {/* Divider */}
-      <div className={`h-px mb-6 ${isPopular ? "bg-blue-500/60" : "bg-slate-100"}`} aria-hidden />
+      <div aria-hidden className={`mt-6 mb-6 border-t ${isPopular ? "border-accent-ink-25" : "border-line"}`} />
 
-      {/* Features */}
+      {/* Fitur */}
       <ul
-        className="space-y-3 mb-8 flex-1"
+        className="mb-8 flex-1 space-y-2.5"
         role="list"
         aria-label={`Fitur paket ${plan.name}`}
       >
         {plan.features.map((feature) => (
-          <li key={feature} className="flex items-start gap-3 text-sm" role="listitem">
-            <Check
-              size={13}
+          <li key={feature} className="flex items-start gap-2.5 text-sm" role="listitem">
+            <span
               aria-hidden
-              className={`flex-shrink-0 mt-0.5 ${isPopular ? "text-blue-300" : "text-blue-500"}`}
+              className={`mt-2 h-1 w-1 flex-shrink-0 rounded-full ${
+                isPopular ? "bg-accent-ink" : "bg-accent"
+              }`}
             />
-            <span className={isPopular ? "text-blue-50" : "text-slate-600"}>
+            <span className={isPopular ? "text-accent-ink-90" : "text-muted"}>
               {feature}
             </span>
           </li>
         ))}
       </ul>
 
-      {/* CTA Button */}
+      {/* CTA */}
       <a
         href={waLink(plan.waMessage)}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label={`${plan.buttonText} — paket ${plan.name} via WhatsApp`}
+        aria-label={`Pilih paket ${plan.name} via WhatsApp`}
         className={`
-          block text-center py-3.5 rounded-xl font-bold text-sm
-          transition-all duration-200 active:scale-[0.98]
-          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2
+          inline-flex items-center justify-center rounded px-5 py-3 text-[14.5px] font-semibold
+          transition-all duration-200 hover:-translate-y-px
           ${isPopular
-            ? "bg-white text-blue-600 hover:bg-slate-50 focus-visible:ring-white"
-            : "bg-blue-600 text-white hover:bg-blue-700 focus-visible:ring-blue-500"
-          }
+            ? "bg-surface text-ink border border-transparent hover:border-accent-ink-25"
+            : "bg-accent text-accent-ink hover:bg-accent-hover"}
         `}
       >
-        {plan.buttonText}
+        {isPopular ? "Pilih Paket Ini" : "Pilih Paket Ini"}
       </a>
     </article>
   );
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
-// DEFAULT EXPORT
+// COMPONENT
 // ─────────────────────────────────────────────────────────────────────────────
 
 export default function Pricing() {
@@ -184,35 +183,24 @@ export default function Pricing() {
     <section
       id="harga"
       aria-labelledby="pricing-heading"
-      className="py-24 px-4 bg-white"
+      className="border-t border-line bg-bg"
     >
-      <div className="max-w-6xl mx-auto">
+      <div className="mx-auto max-w-site px-5 py-16 md:px-8 md:py-24">
 
-        {/* Header */}
         <Reveal>
-          <div className="text-center mb-14">
-            <span
-              className="text-[11px] font-bold tracking-[0.2em] uppercase text-blue-600 mb-3 block"
-              aria-hidden
-            >
-              Harga Terjangkau
-            </span>
-            <h2
-              id="pricing-heading"
-              className="text-3xl md:text-4xl font-bold text-slate-900 mb-4"
-            >
-              Pilih Sesuai Kebutuhan
-            </h2>
-            <p className="text-slate-500 max-w-xl mx-auto text-sm leading-relaxed">
-              Mulai dari Rp 500rb untuk mahasiswa. Konsultasi gratis sebelum order.
-            </p>
-          </div>
+          <SectionHeader
+            id="pricing-heading"
+            num="04"
+            kicker="Harga"
+            title="Pilih sesuai kebutuhan."
+            subtitle="Harga transparan, konsultasi gratis sebelum order. Khusus mahasiswa bisa nego & cicil."
+          />
         </Reveal>
 
         {/* Grid */}
-        <Reveal delay={100}>
+        <Reveal delay={80}>
           <ul
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+            className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
             role="list"
             aria-label="Daftar paket harga"
           >
@@ -225,15 +213,11 @@ export default function Pricing() {
         </Reveal>
 
         {/* Footnote */}
-        <Reveal delay={80}>
-          <div className="text-center mt-10 space-y-1">
-            <p className="text-xs text-slate-400">
-              * Harga untuk mahasiswa bisa nego &amp; cicil. Domain &amp; hosting bisa ditambahkan sesuai kebutuhan.
-            </p>
-            <p className="text-xs text-slate-400">
-              Hubungi kami via WhatsApp untuk konsultasi gratis — tim siap membantu.
-            </p>
-          </div>
+        <Reveal delay={60}>
+          <p className="mt-8 text-[13px] text-faint">
+            * Domain &amp; hosting bisa ditambahkan sesuai kebutuhan. Konsultasi pertama gratis tanpa komitmen —
+            hubungi kami via WhatsApp untuk diskusi.
+          </p>
         </Reveal>
 
       </div>

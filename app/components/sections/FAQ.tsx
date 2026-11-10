@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useCallback, memo } from "react";
-import { Plus, Minus } from "lucide-react";
 import Reveal from "../ui/Reveal";
+import SectionHeader from "../ui/SectionHeader";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // DATA
@@ -37,10 +37,6 @@ const faqs = [
     q: "Teknologi apa yang dipakai?",
     a: "Kami pakai Next.js atau Laravel tergantung kebutuhan. Semua website dioptimasi untuk kecepatan loading, SEO dasar, dan tampil sempurna di semua perangkat.",
   },
-  {
-    q: "Bagaimana cara mulai order?",
-    a: "Cukup chat WhatsApp kami, ceritakan kebutuhan website kamu, dan kami akan bantu tentukan paket yang paling sesuai. Konsultasi pertama gratis tanpa komitmen.",
-  },
 ] as const;
 
 // ⚠️ Ganti dengan nomor WA asli sebelum deploy!
@@ -48,7 +44,7 @@ const WA_HREF =
   "https://wa.me/6282319216326?text=Halo%2C%20saya%20mau%20tanya%20lebih%20lanjut%20soal%20pembuatan%20website.";
 
 // ─────────────────────────────────────────────────────────────────────────────
-// FAQ ITEM
+// FAQ ITEM — baris minimal dipisah border, seperti layout editorial
 // ─────────────────────────────────────────────────────────────────────────────
 
 interface FaqItemProps {
@@ -61,43 +57,43 @@ interface FaqItemProps {
 
 const FaqItem = memo(function FaqItem({ q, a, open, onToggle, index }: FaqItemProps) {
   return (
-    <div
-      className={`
-        border rounded-xl overflow-hidden
-        transition-all duration-200
-        ${open ? "border-blue-200 bg-blue-50/40" : "border-slate-100 bg-white hover:border-slate-200"}
-      `}
-    >
+    <div className="border-b border-line">
       <button
         onClick={onToggle}
         aria-expanded={open}
         aria-controls={`faq-answer-${index}`}
         id={`faq-question-${index}`}
-        className="
-          w-full flex items-center justify-between
-          text-left px-6 py-5 gap-4
-          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-inset
-        "
+        className="group flex w-full items-baseline gap-4 py-5 text-left"
       >
-        <span className={`text-sm font-semibold leading-snug ${open ? "text-blue-700" : "text-slate-900"}`}>
-          {q}
-        </span>
+        {/* Nomor pertanyaan */}
         <span
           aria-hidden
-          className={`
-            flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center
-            transition-colors duration-200
-            ${open ? "bg-blue-600 text-white" : "bg-slate-100 text-slate-400"}
-          `}
+          className={`font-mono text-[12px] transition-colors ${
+            open ? "text-accent" : "text-faint group-hover:text-accent"
+          }`}
         >
-          {open
-            ? <Minus size={12} strokeWidth={2.5} />
-            : <Plus size={12} strokeWidth={2.5} />
-          }
+          {String(index + 1).padStart(2, "0")}
+        </span>
+
+        <span
+          className={`flex-1 text-[15px] font-medium leading-snug transition-colors sm:text-base ${
+            open ? "text-accent" : "text-ink group-hover:text-accent"
+          }`}
+        >
+          {q}
+        </span>
+
+        <span
+          aria-hidden
+          className={`font-mono text-base leading-none transition-transform duration-300 ${
+            open ? "rotate-45 text-accent" : "text-faint group-hover:text-accent"
+          }`}
+        >
+          +
         </span>
       </button>
 
-      {/* Answer — CSS height transition */}
+      {/* Jawaban */}
       <div
         id={`faq-answer-${index}`}
         role="region"
@@ -108,7 +104,7 @@ const FaqItem = memo(function FaqItem({ q, a, open, onToggle, index }: FaqItemPr
         `}
       >
         <div className="overflow-hidden">
-          <p className="px-6 pb-5 text-sm text-slate-500 leading-relaxed">
+          <p className="max-w-[68ch] pb-5 pl-9 text-sm leading-[1.8] text-muted">
             {a}
           </p>
         </div>
@@ -118,7 +114,7 @@ const FaqItem = memo(function FaqItem({ q, a, open, onToggle, index }: FaqItemPr
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
-// DEFAULT EXPORT
+// COMPONENT
 // ─────────────────────────────────────────────────────────────────────────────
 
 export default function FAQ() {
@@ -133,36 +129,25 @@ export default function FAQ() {
     <section
       id="faq"
       aria-labelledby="faq-heading"
-      className="py-24 px-4 bg-white"
+      className="border-t border-line bg-bg"
     >
-      <div className="max-w-3xl mx-auto">
+      <div className="mx-auto max-w-site px-5 py-16 md:px-8 md:py-24">
 
-        {/* Header */}
         <Reveal>
-          <div className="text-center mb-12">
-            <span
-              className="text-[11px] font-bold tracking-[0.2em] uppercase text-blue-600 mb-3 block"
-              aria-hidden
-            >
-              FAQ
-            </span>
-            <h2
-              id="faq-heading"
-              className="text-3xl md:text-4xl font-bold text-slate-900 mb-4"
-            >
-              Pertanyaan yang Sering Ditanyakan
-            </h2>
-            <p className="text-slate-500 text-sm leading-relaxed max-w-xl mx-auto">
-              Tidak menemukan jawaban yang kamu cari? Langsung tanya via WhatsApp.
-            </p>
-          </div>
+          <SectionHeader
+            id="faq-heading"
+            num="06"
+            kicker="FAQ"
+            title="Pertanyaan yang sering ditanyakan."
+            subtitle="Tidak menemukan jawaban yang kamu cari? Langsung tanya via WhatsApp."
+          />
         </Reveal>
 
-        {/* FAQ List */}
-        <Reveal delay={100}>
-          <ul className="flex flex-col gap-3" role="list" aria-label="Daftar pertanyaan">
+        {/* FAQ List — satu kolom, garis pemisah */}
+        <Reveal delay={80}>
+          <div className="border-t border-line" role="list" aria-label="Daftar pertanyaan">
             {faqs.map((faq, i) => (
-              <li key={faq.q} role="listitem">
+              <div key={faq.q} role="listitem">
                 <FaqItem
                   q={faq.q}
                   a={faq.a}
@@ -170,27 +155,22 @@ export default function FAQ() {
                   onToggle={handleToggle(i)}
                   index={i}
                 />
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
         </Reveal>
 
         {/* CTA */}
         <Reveal delay={60}>
-          <div className="text-center mt-12">
-            <p className="text-sm text-slate-400 mb-4">Masih ada pertanyaan lain?</p>
+          <div className="mt-10">
             <a
               href={WA_HREF}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Tanya via WhatsApp (buka tab baru)"
               className="
-                inline-flex items-center gap-2
-                bg-blue-600 hover:bg-blue-700
-                text-white text-sm font-bold
-                px-6 py-3 rounded-xl
-                transition-all duration-200 active:scale-[0.98]
-                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2
+                inline-flex items-center gap-2 rounded px-5 py-3 text-[15px] font-semibold
+                bg-accent text-accent-ink transition-all duration-200 hover:bg-accent-hover hover:-translate-y-px
               "
             >
               Tanya via WhatsApp

@@ -5,14 +5,15 @@ import {
   Building2,
   School,
   Rocket,
-  Smartphone,
+  MonitorSmartphone,
   Gauge,
   Headphones,
 } from "lucide-react";
 import Reveal from "../ui/Reveal";
+import SectionHeader from "../ui/SectionHeader";
 
 // ─────────────────────────────────────────────────────────────────────────────
-// DATA — 3 layanan inti (yang dipesan klien)
+// DATA — 3 layanan inti
 // ─────────────────────────────────────────────────────────────────────────────
 
 const coreServices: {
@@ -41,21 +42,14 @@ const coreServices: {
   },
 ];
 
-// ─────────────────────────────────────────────────────────────────────────────
-// DATA — yang otomatis didapat di setiap paket
-// ─────────────────────────────────────────────────────────────────────────────
-
-const included: {
-  icon: React.ElementType;
-  label: string;
-}[] = [
-  { icon: Smartphone,  label: "Responsive di semua device" },
-  { icon: Gauge,       label: "Loading cepat & teroptimasi" },
-  { icon: Headphones,  label: "Support pasca-launch" },
+const included: { icon: React.ElementType; label: string }[] = [
+  { icon: MonitorSmartphone, label: "Responsive di semua device" },
+  { icon: Gauge,             label: "Loading cepat & teroptimasi" },
+  { icon: Headphones,        label: "Support pasca-launch" },
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
-// CORE SERVICE CARD
+// CORE SERVICE CARD — flat, border tipis, hover aksen
 // ─────────────────────────────────────────────────────────────────────────────
 
 interface CoreCardProps {
@@ -74,60 +68,26 @@ const CoreServiceCard = memo(function CoreServiceCard({
   return (
     <article
       aria-label={title}
-      className="
-        group relative flex flex-col h-full
-        p-8 sm:p-9
-        rounded-2xl
-        bg-white
-        border border-slate-100
-        hover:border-slate-200
-        hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)]
-        transition-all duration-300
-      "
+      className="group flex h-full flex-col rounded border border-line bg-surface p-6 transition-colors duration-300 hover:border-accent md:p-8"
     >
-      {/* Number watermark */}
+      {/* Nomor monospace */}
       <span
         aria-hidden
-        className="
-          absolute top-6 right-7
-          font-black text-slate-50
-          group-hover:text-blue-50
-          transition-colors duration-300
-          select-none
-        "
-        style={{ fontSize: 56, lineHeight: 1, letterSpacing: "-0.04em" }}
+        className="font-mono text-[12px] text-faint transition-colors duration-300 group-hover:text-accent"
       >
         {number}
       </span>
 
       {/* Icon */}
-      <div
-        aria-hidden
-        className="
-          relative z-10
-          w-11 h-11 mb-6 rounded-xl
-          bg-slate-50 group-hover:bg-blue-600
-          flex items-center justify-center
-          transition-colors duration-300
-        "
-      >
-        <Icon
-          size={20}
-          aria-hidden
-          strokeWidth={2}
-          className="text-slate-700 group-hover:text-white transition-colors duration-300"
-        />
+      <div aria-hidden className="mt-6 text-ink">
+        <Icon size={22} strokeWidth={1.8} className="transition-colors duration-300 group-hover:text-accent" />
       </div>
 
       {/* Title */}
-      <h3 className="relative z-10 text-lg font-bold text-slate-900 mb-2 tracking-tight">
-        {title}
-      </h3>
+      <h3 className="mt-4 text-lg text-ink">{title}</h3>
 
-      {/* Description */}
-      <p className="relative z-10 text-slate-500 text-sm leading-relaxed">
-        {desc}
-      </p>
+      {/* Desc */}
+      <p className="mt-2 text-sm leading-[1.75] text-muted">{desc}</p>
     </article>
   );
 });
@@ -141,71 +101,48 @@ export default function Services() {
     <section
       id="layanan"
       aria-labelledby="services-heading"
-      className="py-20 sm:py-24 lg:py-28 px-4 bg-white"
+      className="border-t border-line bg-bg"
     >
-      <div className="max-w-6xl mx-auto">
+      <div className="mx-auto max-w-site px-5 py-16 md:px-8 md:py-24">
 
-        {/* Header */}
         <Reveal>
-          <div className="text-center mb-14 sm:mb-16">
-            <span
-              aria-hidden
-              className="text-[11px] font-bold tracking-[0.2em] uppercase text-blue-600 mb-3 block"
-            >
-              Layanan Kami
-            </span>
-
-            <h2
-              id="services-heading"
-              className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 mb-4 tracking-tight"
-            >
-              Solusi Lengkap untuk Bisnis Anda
-            </h2>
-
-            <p className="text-slate-500 max-w-xl mx-auto text-sm sm:text-base leading-relaxed">
-              Dari company profile hingga toko online — kami bantu wujudkan
-              website yang sesuai kebutuhan bisnis Anda.
-            </p>
-          </div>
+          <SectionHeader
+            id="services-heading"
+            num="02"
+            kicker="Layanan"
+            title="Solusi lengkap untuk bisnis Anda."
+            subtitle="Dari company profile hingga website sekolah — kami bantu wujudkan digital presence yang sesuai kebutuhan bisnis Anda."
+          />
         </Reveal>
 
         {/* Core services grid */}
-        <ul
-          className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-12"
-          role="list"
-          aria-label="Layanan inti"
-        >
+        <ul className="grid grid-cols-1 gap-4 sm:grid-cols-3" role="list" aria-label="Layanan inti">
           {coreServices.map((service, i) => (
             <li key={service.title} role="listitem">
-              <Reveal delay={i * 90} className="h-full">
+              <Reveal delay={i * 80} className="h-full">
                 <CoreServiceCard {...service} />
               </Reveal>
             </li>
           ))}
         </ul>
 
-        {/* Included strip — bukan "layanan", tapi yang otomatis didapat */}
+        {/* Included strip */}
         <Reveal delay={120}>
-          <div
-            className="
-              flex flex-col sm:flex-row items-center justify-center
-              gap-x-10 gap-y-4
-              py-6 px-8
-              rounded-2xl
-              bg-slate-50
-              border border-slate-100
-            "
+          <ul
+            className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3"
+            role="list"
+            aria-label="Sudah termasuk di semua paket"
           >
-            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider sm:border-r sm:border-slate-200 sm:pr-8">
+            <li className="font-mono text-[11px] uppercase tracking-[0.14em] text-faint" aria-hidden>
               Sudah termasuk
-            </span>
+            </li>
             {included.map(({ icon: Icon, label }) => (
-              <div key={label} className="flex items-center gap-2">
-                <Icon size={15} strokeWidth={2} className="text-blue-600 flex-shrink-0" aria-hidden />
-                <span className="text-sm text-slate-600 font-medium">{label}</span>
-              </div>
+              <li key={label} className="flex items-center gap-2 text-sm text-muted">
+                <Icon size={15} strokeWidth={2} className="flex-shrink-0 text-accent" aria-hidden />
+                {label}
+              </li>
             ))}
-          </div>
+          </ul>
         </Reveal>
 
       </div>

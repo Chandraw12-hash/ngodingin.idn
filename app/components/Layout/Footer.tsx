@@ -1,6 +1,6 @@
 "use client";
 
-import { Instagram, Github, Youtube, ArrowUpRight } from "lucide-react";
+import { Instagram, Mail } from "lucide-react";
 import Reveal from "../ui/Reveal";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -13,168 +13,109 @@ const WA_HREF =
 
 const links = {
   Layanan: [
-    { label: "Landing Page",    href: "#layanan" },
     { label: "Company Profile", href: "#layanan" },
-    { label: "Toko Online",     href: "#layanan" },
-    { label: "Fullstack App",   href: "#layanan" },
+    { label: "Website Sekolah", href: "#layanan" },
+    { label: "Landing Page",    href: "#layanan" },
   ],
   Navigasi: [
     { label: "Portfolio",  href: "#portfolio" },
     { label: "Harga",      href: "#harga" },
     { label: "Testimoni",  href: "#testimoni" },
-    { label: "Tentang",    href: "#tentang" },
     { label: "FAQ",        href: "#faq" },
+    { label: "Tentang",    href: "#tentang" },
+  ],
+  Kontak: [
+    { label: "Konsultasi WhatsApp", href: WA_HREF },
   ],
 };
 
 const socials = [
-  { icon: Instagram, href: "https://instagram.com/ngodingin.idn",  label: "Instagram ngodingin.id" },
-  { icon: Youtube,   href: "https://tiktok.com/@ngodingin.idn",    label: "TikTok ngodingin.id" },
-  { icon: Github,    href: "https://github.com/ngodinginid",       label: "GitHub ngodingin.id" },
+  { icon: Instagram, href: "https://instagram.com/ngodingin.idn", label: "Instagram ngodingin.id" },
+  { icon: Mail,      href: "mailto:chandra123wj@gmail.com",       label: "Email ngodingin.id" },
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
-// LOGO — pakai gambar asli, fallback ke teks jika gagal load
-// ─────────────────────────────────────────────────────────────────────────────
-
-function Logo() {
-  return (
-    <a
-      href="/"
-      className="inline-flex items-center gap-2.5 group select-none"
-      aria-label="ngodingin.id — halaman utama"
-    >
-      <div className="relative w-9 h-9 rounded-xl overflow-hidden ring-1 ring-slate-200 group-hover:ring-blue-300 transition-all duration-200 flex-shrink-0">
-        <img
-          src="/logo/logo.jpeg"
-          alt=""
-          aria-hidden
-          className="w-full h-full object-cover"
-          onError={(e) => {
-            const img = e.currentTarget as HTMLImageElement;
-            img.style.display = "none";
-            const wrap = img.parentElement!;
-            wrap.style.background = "#2563eb";
-            wrap.style.display = "flex";
-            wrap.style.alignItems = "center";
-            wrap.style.justifyContent = "center";
-            const fb = document.createElement("span");
-            fb.textContent = "</>";
-            fb.setAttribute("aria-hidden", "true");
-            fb.style.cssText =
-              "color:white;font-size:10px;font-weight:800;font-family:monospace;";
-            wrap.appendChild(fb);
-          }}
-        />
-      </div>
-      <span className="font-black text-[17px] tracking-[-0.04em] text-slate-900">
-        ngodingin<span className="text-blue-600">.id</span>
-      </span>
-    </a>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// DEFAULT EXPORT
+// FOOTER — minimal: border atas, grid tautan, baris bawah monospace
 // ─────────────────────────────────────────────────────────────────────────────
 
 export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer
-      aria-label="Footer"
-      className="bg-white border-t border-slate-100"
-    >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <footer aria-label="Footer" className="border-t border-line bg-bg">
+      <div className="mx-auto max-w-site px-5 md:px-8">
 
-        {/* ── MAIN GRID ── */}
+        {/* ── MAIN ── */}
         <Reveal>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-10 py-14 border-b border-slate-100">
+          <div className="grid grid-cols-1 gap-10 py-14 md:grid-cols-[1.4fr_auto_auto_auto] md:gap-14">
 
-          {/* Brand column */}
-          <div className="md:col-span-2">
-            <Logo />
+            {/* Brand */}
+            <div>
+              <a href="/" className="select-none" aria-label="ngodingin.id — halaman utama">
+                <span className="text-[17px] font-semibold tracking-[-0.02em] text-ink">
+                  ngodingin<span className="text-accent">.id</span>
+                </span>
+              </a>
 
-            <p className="text-slate-500 text-sm leading-relaxed max-w-xs mt-5">
-              Solusi web development Laravel, Next.js &amp; Fullstack untuk
-              UMKM dan bisnis Indonesia. Aman, rapi, dan beres tepat waktu.
-            </p>
-
-            {/* Social links */}
-            <div
-              className="flex items-center gap-3 mt-6"
-              aria-label="Media sosial"
-            >
-              {socials.map(({ icon: Icon, href, label }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`${label} (buka tab baru)`}
-                  className="
-                    w-9 h-9 rounded-lg border border-slate-200
-                    flex items-center justify-center
-                    text-slate-400
-                    hover:text-blue-600 hover:border-blue-200 hover:bg-blue-50
-                    transition-all duration-150
-                    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500
-                  "
-                >
-                  <Icon size={16} strokeWidth={1.8} aria-hidden />
-                </a>
-              ))}
-            </div>
-          </div>
-
-          {/* Link columns */}
-          {Object.entries(links).map(([group, items]) => (
-            <nav key={group} aria-label={`Navigasi ${group}`}>
-              <p className="text-slate-900 font-bold text-[11px] uppercase tracking-[0.15em] mb-5">
-                {group}
+              <p className="mt-4 max-w-[36ch] text-sm leading-[1.75] text-muted">
+                Jasa pembuatan website profesional untuk UMKM dan bisnis
+                Indonesia — aman, rapi, dan beres tepat waktu.
               </p>
-              <ul className="space-y-3" role="list">
-                {items.map((item) => (
-                  <li key={item.label} role="listitem">
-                    <a
-                      href={item.href}
-                      className="
-                        group
-                        inline-flex items-center gap-1
-                        text-slate-500 hover:text-blue-600
-                        text-sm font-medium
-                        transition-colors duration-150
-                        focus-visible:outline-none focus-visible:underline
-                      "
-                    >
-                      {item.label}
-                      <ArrowUpRight
-                        size={11}
-                        aria-hidden
-                        className="opacity-0 group-hover:opacity-100 transition-opacity"
-                      />
-                    </a>
-                  </li>
+
+              {/* Sosial */}
+              <div className="mt-5 flex items-center gap-2.5" aria-label="Media sosial">
+                {socials.map(({ icon: Icon, href, label }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${label} (buka tab baru)`}
+                    className="
+                      inline-flex h-9 w-9 items-center justify-center rounded border border-line
+                      text-faint transition-colors duration-200
+                      hover:border-accent hover:text-accent
+                    "
+                  >
+                    <Icon size={16} strokeWidth={1.8} aria-hidden />
+                  </a>
                 ))}
-              </ul>
-            </nav>
-          ))}
+              </div>
+            </div>
+
+            {/* Kolom tautan */}
+            {Object.entries(links).map(([group, items]) => (
+              <nav key={group} aria-label={`Navigasi ${group}`}>
+                <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-faint">
+                  {group}
+                </p>
+                <ul className="mt-4 space-y-2.5" role="list">
+                  {items.map((item) => (
+                    <li key={item.label} role="listitem">
+                      <a
+                        href={item.href}
+                        target={item.href.startsWith("http") ? "_blank" : undefined}
+                        rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                        className="text-sm text-muted transition-colors duration-200 hover:text-accent"
+                      >
+                        {item.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            ))}
+
           </div>
         </Reveal>
 
         {/* ── BOTTOM BAR ── */}
-        <div className="py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-slate-400 text-[13px]">
+        <div className="flex flex-col items-center justify-between gap-2 border-t border-line py-6 sm:flex-row">
+          <p className="font-mono text-[12px] text-faint">
             &copy; {year} ngodingin.id — All rights reserved.
           </p>
-          <p className="text-slate-400 text-[13px]">
-            Built with{" "}
-            <span className="text-blue-500 font-semibold">Next.js</span>
-            {" · "}
-            <span className="text-blue-500 font-semibold">Laravel</span>
-            {" · "}
-            <span className="text-blue-500 font-semibold">Tailwind CSS</span>
+          <p className="font-mono text-[12px] text-faint">
+            Next.js · Laravel · Tailwind CSS
           </p>
         </div>
 

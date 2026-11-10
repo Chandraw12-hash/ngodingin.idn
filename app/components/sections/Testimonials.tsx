@@ -1,113 +1,75 @@
 "use client";
 
 import { memo } from "react";
-import { Star, Quote } from "lucide-react";
 import Reveal from "../ui/Reveal";
+import SectionHeader from "../ui/SectionHeader";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // DATA
 // ─────────────────────────────────────────────────────────────────────────────
 
 const testimonials = [
- {
-        name: "Tim Manajemen Sekolah",
-        role: "Kepala Sekolah SMP Negeri 3 Lubuk Pakam",
-        text: "Hasilnya rapi dan profesional banget. Prosesnya juga cepet, komunikasi lancar dari awal sampai selesai. Rekomen banget buat yang mau punya website!",
-        rating: 5
-    },
+  {
+    name: "Tim Manajemen Sekolah",
+    role: "SMP Negeri 3 Lubuk Pakam",
+    text: "Hasilnya rapi dan profesional banget. Prosesnya juga cepet, komunikasi lancar dari awal sampai selesai.",
+  },
   {
     name: "Dewi Sartika",
     role: "Pemilik Toko Fashion Lokal",
     text: "Awalnya ragu mau bikin website, tapi setelah konsultasi langsung paham. Website-nya sesuai ekspektasi, desain clean dan enak dilihat.",
-    rating: 5,
   },
   {
     name: "Fajar Nugroho",
     role: "Mahasiswa & Pelaku UMKM",
     text: "Dikerjain beneran dari nol, bukan template asal pakai. Codenya juga rapi jadi gampang kalau mau dikembangin lagi ke depannya.",
-    rating: 5,
   },
 ] as const;
 
 // ─────────────────────────────────────────────────────────────────────────────
-// TESTIMONIAL CARD
+// TESTIMONIAL CARD — flat, border tipis, tanpa bintang besar
 // ─────────────────────────────────────────────────────────────────────────────
 
 interface TestimonialCardProps {
   name: string;
   role: string;
   text: string;
-  rating: number;
 }
 
 const TestimonialCard = memo(function TestimonialCard({
   name,
   role,
   text,
-  rating,
 }: TestimonialCardProps) {
   return (
-    <article
+    <figure
       aria-label={`Testimoni dari ${name}`}
-      className="
-        flex flex-col
-        bg-white border border-slate-100 rounded-2xl p-6
-        shadow-sm hover:shadow-md hover:-translate-y-0.5
-        transition-all duration-200
-      "
+      className="flex h-full flex-col rounded border border-line bg-surface p-6 transition-colors duration-300 hover:border-accent md:p-8"
     >
-      {/* Quote icon */}
-      <Quote
-        size={24}
-        aria-hidden
-        className="text-blue-100 mb-4 flex-shrink-0"
-        strokeWidth={2}
-      />
+      {/* Kicker — penilaian */}
+      <figcaption aria-hidden className="font-mono text-[11px] uppercase tracking-[0.14em] text-faint">
+        <span className="mr-3 text-accent">★★★★★</span>
+        5/5
+      </figcaption>
 
-      {/* Stars */}
-      <div
-        className="flex gap-0.5 mb-4"
-        aria-label={`Rating ${rating} dari 5 bintang`}
-      >
-        {Array.from({ length: rating }).map((_, i) => (
-          <Star
-            key={i}
-            size={14}
-            aria-hidden
-            className="fill-amber-400 text-amber-400"
-          />
-        ))}
-      </div>
-
-      {/* Text */}
-      <p className="text-slate-600 text-sm leading-relaxed flex-1 mb-6">
-        {text}
-      </p>
+      {/* Testimoni — serif italic, gaya editorial */}
+      <blockquote className="mt-5 flex-1 text-[15px] leading-[1.85] text-ink">
+        &ldquo;{text}&rdquo;
+      </blockquote>
 
       {/* Divider */}
-      <div className="h-px bg-slate-100 mb-5" aria-hidden />
-
-      {/* Author */}
-      <div className="flex items-center gap-3">
-        <div
-          aria-hidden
-          className="w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center flex-shrink-0"
-        >
-          <span className="text-white text-xs font-bold">
-            {name.charAt(0)}
-          </span>
-        </div>
-        <div>
-          <p className="font-semibold text-slate-900 text-sm leading-tight">{name}</p>
-          <p className="text-xs text-slate-400 mt-0.5">{role}</p>
-        </div>
+      <div aria-hidden className="mt-6 border-t border-line pt-5">
+        <p className="text-sm font-semibold text-ink">{name}</p>
+        <p className="mt-0.5 font-mono text-[11px] uppercase tracking-[0.12em] text-faint">
+          {role}
+        </p>
       </div>
-    </article>
+    </figure>
   );
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
-// DEFAULT EXPORT
+// COMPONENT
 // ─────────────────────────────────────────────────────────────────────────────
 
 export default function Testimonials() {
@@ -115,38 +77,23 @@ export default function Testimonials() {
     <section
       id="testimoni"
       aria-labelledby="testimonials-heading"
-      className="py-24 px-4 bg-slate-50"
+      className="border-t border-line bg-bg"
     >
-      <div className="max-w-6xl mx-auto">
+      <div className="mx-auto max-w-site px-5 py-16 md:px-8 md:py-24">
 
-        {/* Header */}
         <Reveal>
-          <div className="text-center mb-14">
-            <span
-              className="text-[11px] font-bold tracking-[0.2em] uppercase text-blue-600 mb-3 block"
-              aria-hidden
-            >
-              Testimoni
-            </span>
-            <h2
-              id="testimonials-heading"
-              className="text-3xl md:text-4xl font-bold text-slate-900 mb-4"
-            >
-              Apa Kata Mereka?
-            </h2>
-            <p className="text-slate-500 text-sm leading-relaxed max-w-xl mx-auto">
-              Dipercaya oleh 8+ klien UMKM dan pelaku bisnis lokal Indonesia.
-            </p>
-          </div>
+          <SectionHeader
+            id="testimonials-heading"
+            num="05"
+            kicker="Testimoni"
+            title="Apa kata mereka."
+            subtitle="Dipercaya oleh klien UMKM, sekolah, dan pelaku bisnis lokal Indonesia."
+          />
         </Reveal>
 
         {/* Grid */}
-        <Reveal delay={100}>
-          <ul
-            className="grid grid-cols-1 md:grid-cols-3 gap-6"
-            role="list"
-            aria-label="Daftar testimoni klien"
-          >
+        <Reveal delay={80}>
+          <ul className="grid grid-cols-1 gap-4 md:grid-cols-3" role="list" aria-label="Daftar testimoni klien">
             {testimonials.map((item) => (
               <li key={item.name} role="listitem">
                 <TestimonialCard {...item} />

@@ -1,8 +1,8 @@
 "use client";
 
 import { memo } from "react";
-import { Shield, Clock, Heart, Code2, Award, Zap } from "lucide-react";
 import Reveal from "../ui/Reveal";
+import SectionHeader from "../ui/SectionHeader";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // DATA
@@ -12,12 +12,10 @@ const WA_HREF =
   "https://wa.me/6282319216326?text=Halo%2C%20saya%20ingin%20konsultasi%20gratis";
 
 const values = [
-  { icon: Shield, title: "Terpercaya",   desc: "Dipercaya 8+ klien UMKM & instansi di Indonesia" },
-  { icon: Clock,  title: "Tepat Waktu",  desc: "Pengerjaan sesuai deadline yang disepakati" },
-  { icon: Heart,  title: "Ramah",        desc: "Konsultasi tanpa tekanan, kami siap membantu" },
-  { icon: Code2,  title: "Fullstack",    desc: "Ditangani end-to-end, dari desain sampai deploy" },
-  { icon: Award,  title: "Berkualitas",  desc: "Kode bersih dan terstruktur dengan baik" },
-  { icon: Zap,    title: "Cepat",        desc: "Website dioptimalkan untuk performa terbaik" },
+  { title: "Terpercaya",  desc: "Dipercaya klien UMKM & instansi di Indonesia" },
+  { title: "Tepat Waktu", desc: "Pengerjaan sesuai deadline yang disepakati" },
+  { title: "Fullstack",   desc: "End-to-end, dari desain sampai deploy" },
+  { title: "Berkualitas", desc: "Kode bersih dan terstruktur dengan baik" },
 ] as const;
 
 const stats = [
@@ -28,39 +26,23 @@ const stats = [
 ] as const;
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SUB-COMPONENTS
+// VALUE ROW — baris minta, seperti daftar "Stack" di portfolio
 // ─────────────────────────────────────────────────────────────────────────────
 
-const ValueCard = memo(function ValueCard({
-  icon: Icon,
+const ValueRow = memo(function ValueRow({
   title,
   desc,
 }: (typeof values)[number]) {
   return (
-    <div
-      aria-label={title}
-      className="
-        flex flex-col items-center text-center
-        p-4 bg-white rounded-xl
-        border border-slate-100
-        shadow-sm hover:shadow-md hover:-translate-y-0.5
-        transition-all duration-200
-      "
-    >
-      <div
-        aria-hidden
-        className="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center mb-3 flex-shrink-0"
-      >
-        <Icon size={18} className="text-blue-600" aria-hidden />
-      </div>
-      <h4 className="font-semibold text-slate-900 text-sm mb-1">{title}</h4>
-      <p className="text-slate-500 text-xs leading-relaxed">{desc}</p>
+    <div className="grid grid-cols-1 gap-1 border-b border-line py-4 sm:grid-cols-[160px_1fr] sm:gap-4">
+      <h4 className="text-[15px] font-semibold text-ink">{title}</h4>
+      <p className="text-sm leading-[1.75] text-muted">{desc}</p>
     </div>
   );
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
-// DEFAULT EXPORT
+// COMPONENT
 // ─────────────────────────────────────────────────────────────────────────────
 
 export default function About() {
@@ -68,139 +50,99 @@ export default function About() {
     <section
       id="tentang"
       aria-labelledby="about-heading"
-      className="py-24 px-4 bg-white"
+      className="border-t border-line bg-bg"
     >
-      <div className="max-w-6xl mx-auto">
+      <div className="mx-auto max-w-site px-5 py-16 md:px-8 md:py-24">
 
-        {/* Header */}
         <Reveal>
-          <div className="text-center mb-14">
-            <span
-              className="text-[11px] font-bold tracking-[0.2em] uppercase text-blue-600 mb-3 block"
-              aria-hidden
-            >
-              Tentang Kami
-            </span>
-            <h2
-              id="about-heading"
-              className="text-3xl md:text-4xl font-bold text-slate-900 mb-4"
-            >
-              Ngodingin.id — Partner Digital untuk UMKM
-            </h2>
-            <p className="text-slate-500 text-sm leading-relaxed max-w-xl mx-auto">
-              Kami percaya setiap bisnis berhak punya website profesional tanpa ribet.
-            </p>
-          </div>
+          <SectionHeader
+            id="about-heading"
+            num="07"
+            kicker="Tentang"
+            title="Partner digital untuk UMKM."
+            subtitle="Kami percaya setiap bisnis berhak punya website profesional — tanpa mahal, tanpa ribet."
+          />
         </Reveal>
 
-        {/* Two-column grid */}
-        <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
+        {/* Two-column — narasi + daftar nilai */}
+        <div className="grid gap-10 md:grid-cols-[1.4fr_0.6fr] md:gap-14">
 
-          {/* Left — story */}
-          <Reveal delay={80}>
-            <div>
-            <p className="text-slate-600 leading-relaxed mb-4 text-sm">
-              <strong className="text-slate-900 font-semibold">Ngodingin.id</strong> hadir
-              sebagai solusi pembuatan website untuk UMKM Indonesia yang ingin naik kelas.
-              Kami paham bahwa memiliki website profesional itu penting, tapi sering terasa
-              mahal dan rumit.
-            </p>
-            <p className="text-slate-600 leading-relaxed mb-4 text-sm">
-              Setiap project ditangani secara <strong className="text-slate-900 font-semibold">fullstack</strong> —
-              dari desain antarmuka, pengembangan sistem, hingga deploy ke server — dengan
-              komunikasi langsung tanpa perantara.
-            </p>
-            <p className="text-slate-600 leading-relaxed text-sm">
-              Dari company profile, toko online, hingga website resmi sekolah dan instansi —
-              kami siap membantu bisnis Anda tampil lebih profesional dan menjangkau lebih
-              banyak pelanggan.
-            </p>
+          {/* Kiri — cerita */}
+          <Reveal delay={60}>
+            <div className="max-w-[68ch]">
+              <p className="text-[15px] leading-[1.85] text-muted">
+                <strong className="font-semibold text-ink">ngodingin.id</strong> hadir
+                sebagai solusi pembuatan website untuk UMKM Indonesia yang ingin naik
+                kelas. Setiap project ditangani secara fullstack — dari desain
+                antarmuka, pengembangan sistem, hingga deploy ke server — dengan
+                komunikasi langsung tanpa perantara.
+              </p>
+              <p className="mt-4 text-[15px] leading-[1.85] text-muted">
+                Dari company profile, landing page, hingga website resmi sekolah dan
+                instansi — kami siap membantu bisnis Anda tampil lebih profesional
+                dan menjangkau lebih banyak pelanggan.
+              </p>
 
-            {/* CTAs */}
-            <div className="mt-8 flex flex-wrap gap-3">
-              <a
-                href="#layanan"
-                className="
-                  inline-flex items-center
-                  bg-blue-600 hover:bg-blue-700
-                  text-white text-sm font-bold
-                  px-5 py-3 rounded-xl
-                  transition-colors duration-200 active:scale-[0.98]
-                  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2
-                "
-              >
-                Lihat Layanan
-              </a>
-              <a
-                href={WA_HREF}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Konsultasi gratis via WhatsApp (buka tab baru)"
-                className="
-                  inline-flex items-center
-                  border border-slate-200 hover:border-blue-300
-                  text-slate-700 hover:text-blue-600
-                  text-sm font-bold
-                  px-5 py-3 rounded-xl
-                  transition-colors duration-200 active:scale-[0.98]
-                  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2
-                "
-              >
-                Konsultasi Gratis
-              </a>
+              {/* CTAs */}
+              <div className="mt-8 flex flex-wrap gap-3.5">
+                <a
+                  href="#harga"
+                  className="
+                    inline-flex items-center rounded bg-accent px-5 py-3 text-[15px] font-semibold text-accent-ink
+                    transition-all duration-200 hover:bg-accent-hover hover:-translate-y-px
+                  "
+                >
+                  Lihat Paket
+                </a>
+                <a
+                  href={WA_HREF}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Konsultasi gratis via WhatsApp (buka tab baru)"
+                  className="
+                    inline-flex items-center rounded border border-line px-5 py-3
+                    text-[15px] font-semibold text-ink transition-all duration-200
+                    hover:border-accent hover:text-accent hover:-translate-y-px
+                  "
+                >
+                  Konsultasi Gratis
+                </a>
+              </div>
             </div>
-          </div>
           </Reveal>
 
-          {/* Right — values grid */}
-          <Reveal delay={160}>
-            <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100 h-full">
-              <h3 className="text-base font-bold text-slate-900 mb-5 text-center">
-                Kenapa Pilih Kami?
-              </h3>
-              <ul
-                className="grid grid-cols-2 gap-3"
-                role="list"
-                aria-label="Keunggulan kami"
-              >
-                {values.map((item) => (
-                  <li key={item.title} role="listitem">
-                    <ValueCard {...item} />
-                  </li>
-                ))}
-              </ul>
+          {/* Kanan — nilai, seperti daftar Stack di portfolio */}
+          <Reveal delay={120}>
+            <div className="border-t border-line">
+              <p aria-hidden className="py-4 font-mono text-[11px] uppercase tracking-[0.14em] text-faint">
+                Kenapa kami
+              </p>
+              {values.map((item) => (
+                <ValueRow key={item.title} {...item} />
+              ))}
             </div>
           </Reveal>
 
         </div>
 
-        {/* Stats bar */}
+        {/* Stats — grid angka serif */}
         <Reveal delay={80}>
-          <div className="border-t border-slate-100 pt-10">
-            <ul
-              className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center"
-              role="list"
-              aria-label="Statistik kami"
-            >
-              {stats.map(({ n, label }) => (
-                <li
-                  key={label}
-                  role="listitem"
-                  aria-label={`${n} ${label}`}
-                >
-                  <p
-                    className="text-3xl font-black text-blue-600 tracking-tight leading-none mb-2"
-                    aria-hidden
-                  >
-                    {n}
-                  </p>
-                  <p className="text-slate-500 text-sm" aria-hidden>
-                    {label}
-                  </p>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <ul
+            className="mt-16 grid grid-cols-2 gap-x-8 gap-y-8 border-t border-line pt-10 md:grid-cols-4"
+            role="list"
+            aria-label="Statistik kami"
+          >
+            {stats.map(({ n, label }) => (
+              <li key={label} role="listitem" aria-label={`${n} ${label}`}>
+                <p className="text-3xl text-accent md:text-4xl" aria-hidden>
+                  {n}
+                </p>
+                <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.12em] text-faint" aria-hidden>
+                  {label}
+                </p>
+              </li>
+            ))}
+          </ul>
         </Reveal>
 
       </div>

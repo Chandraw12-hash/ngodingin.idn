@@ -1,30 +1,60 @@
-@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap");
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ── Desain token — latar putih bersih, aksen biru senada logo NG ──────────── */
 :root {
-  --brand: #13a36e;
-  --accent: #2274e9;
+  --bg: #ffffff;
+  --surface: #f8fafc;
+  --ink: #0f172a;
+  --muted: #0f172aa3;
+  --faint: #0f172a6b;
+  --line: #0f172a1f;
+  --accent: #1e56d0;
+  --accent-hover: #16399e;
+  --accent-ink: #ffffff;
+  --accent-soft: #1e56d014;
+
+  /* Turunan warna aksen untuk paket "popular" (kartu aksen penuh) */
+  --accent-ink-80: rgba(255, 255, 255, 0.8);
+  --accent-ink-90: rgba(255, 255, 255, 0.9);
+  --accent-ink-25: rgba(255, 255, 255, 0.25);
+  --ink-20: rgba(15, 23, 42, 0.2);
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 96px;
+  scroll-padding-top: 5.5rem;
 }
 
 body {
-  font-family: "Plus Jakarta Sans", sans-serif;
-  background-color: #f8faf9;
-  color: #0f1a14;
+  font-family: var(--font-body), system-ui, sans-serif;
+  background-color: var(--bg);
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.75;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
+/* Heading serif editorial — seperti portfolio */
+h1, h2, h3 {
+  font-family: var(--font-display), Georgia, serif;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
 ::selection {
-  background-color: #bfdbfe;
-  color: #0f172a;
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -33,17 +63,8 @@ body {
   }
 }
 
-@layer utilities {
-  .animate-delay-100 { animation-delay: 100ms; }
-  .animate-delay-200 { animation-delay: 200ms; }
-  .animate-delay-300 { animation-delay: 300ms; }
-  .animate-delay-400 { animation-delay: 400ms; }
-  .animate-delay-500 { animation-delay: 500ms; }
-
-  .opacity-0-init { opacity: 0; }
-}
-
-/* Scrollbar */
+/* Scrollbar — tipis & senada */
 ::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #f1f5f2; }
-::-webkit-scrollbar-thumb { background: #13a36e; border-radius: 3px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--line); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }

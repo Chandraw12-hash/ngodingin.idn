@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 /**
  * Reveal — animasi masuk yang konsisten untuk seluruh halaman.
  *
- * Arah: dari kanan ke kiri (translateX positif → 0) dengan fade halus.
+ * Arah: dari bawah ke atas (translateY positif → 0) dengan fade halus.
  * Animasi hanya berjalan sekali saat elemen pertama kali terlihat.
  * Otomatis nonaktif jika pengguna mengaktifkan "prefers-reduced-motion".
  */
@@ -14,7 +14,7 @@ interface RevealProps {
   className?: string;
   /** Jeda sebelum animasi dimulai (ms). */
   delay?: number;
-  /** Jarak awal dari kanan (px). */
+  /** Jarak awal dari bawah (px). */
   distance?: number;
 }
 
@@ -62,7 +62,7 @@ export default function Reveal({
         opacity: shown ? 1 : 0,
         transform: shown
           ? "translate3d(0, 0, 0)"
-          : `translate3d(${distance}px, 0, 0)`,
+          : `translate3d(0, ${distance}px, 0)`,
         transition: `opacity 800ms ${EASE} ${delay}ms, transform 900ms ${EASE} ${delay}ms`,
         willChange: shown ? "auto" : "opacity, transform",
       }}
