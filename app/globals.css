@@ -68,3 +68,74 @@ h1, h2, h3 {
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--line); border-radius: 999px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+/* ── Marquee tech stack ───────────────────────────────────────────────────── */
+@keyframes marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+
+.marquee-track {
+  animation: marquee 45s linear infinite;
+  will-change: transform;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* ── Hero visual — animasi self-assembling browser mockup ────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.anim-in {
+  animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes barIn {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+.anim-bar {
+  transform-origin: left center;
+  animation: barIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes progressFill {
+  from { width: 4%; }
+  to   { width: 100%; }
+}
+
+.anim-progress {
+  width: 100%;
+  animation: progressFill 2.4s cubic-bezier(0.4, 0, 0.2, 1) 0.4s both;
+}
+
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-7px); }
+}
+
+.float-a { animation: floatY 4.5s ease-in-out infinite; }
+.float-b { animation: floatY 5.4s ease-in-out 0.7s infinite; }
+
+@keyframes statusA { 0%, 52% { opacity: 1; } 58%, 100% { opacity: 0; } }
+@keyframes statusB { 0%, 52% { opacity: 0; } 58%, 100% { opacity: 1; } }
+
+.status-a { opacity: 1; animation: statusA 5s ease infinite; }
+.status-b { opacity: 0; animation: statusB 5s ease infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-in, .anim-bar { animation: none; opacity: 1; transform: none; }
+  .anim-progress { animation: none; width: 100%; }
+  .float-a, .float-b { animation: none; }
+  .status-a { animation: none; opacity: 0; }
+  .status-b { animation: none; opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+}

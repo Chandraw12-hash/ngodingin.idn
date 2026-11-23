@@ -2,18 +2,8 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { Menu, X } from "lucide-react";
-
-// ─────────────────────────────────────────────────────────────────────────────
-// DATA
-// ─────────────────────────────────────────────────────────────────────────────
-
-const NAV = [
-  { label: "Layanan",   href: "#layanan" },
-  { label: "Portfolio", href: "#portfolio" },
-  { label: "Harga",     href: "#harga" },
-  { label: "Testimoni", href: "#testimoni" },
-  { label: "Tentang",   href: "#tentang" },
-];
+import { useLang } from "../../../lib/i18n";
+import LanguageToggle from "../ui/LanguageToggle";
 
 // ⚠️ Ganti dengan nomor WA asli sebelum deploy!
 const WA_HREF =
@@ -23,12 +13,12 @@ const WA_HREF =
 // LOGO
 // ─────────────────────────────────────────────────────────────────────────────
 
-function Logo() {
+function Logo({ label }: { label: string }) {
   return (
     <a
       href="/"
       className="flex select-none items-center gap-2.5"
-      aria-label="ngodingin.id — halaman utama"
+      aria-label={label}
     >
       <div className="relative flex h-8 w-8 flex-shrink-0 items-center justify-center rounded">
         <img
@@ -55,10 +45,6 @@ function Logo() {
   );
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// LOGO — versi drawer (fallback teks saja, tanpa gambar)
-// ─────────────────────────────────────────────────────────────────────────────
-
 function LogoText() {
   return (
     <span className="text-[16px] font-semibold tracking-[-0.02em] text-ink">
@@ -72,6 +58,7 @@ function LogoText() {
 // ─────────────────────────────────────────────────────────────────────────────
 
 export default function Navbar() {
+  const { t } = useLang();
   const [open, setOpen] = useState(false);
   const [solid, setSolid] = useState(false);
 
@@ -113,7 +100,7 @@ export default function Navbar() {
       {/* ── NAV BAR ──────────────────────────────────────────────────────── */}
       <header>
         <nav
-          aria-label="Navigasi utama"
+          aria-label={t.nav.navLabel}
           className={`
             fixed inset-x-0 top-0 z-50
             transition-all duration-300
@@ -122,22 +109,16 @@ export default function Navbar() {
               : "border-b border-transparent bg-transparent"}
           `}
         >
-          <div className="mx-auto flex h-16 max-w-site items-center justify-between px-5 md:px-8">
-            <Logo />
+          <div className="mx-auto flex h-16 max-w-site items-center justify-between gap-4 px-5 md:px-8">
+            <Logo label={t.nav.homeLabel} />
 
             {/* Desktop links */}
-            <ul
-              className="hidden list-none items-center gap-7 md:flex"
-              role="list"
-            >
-              {NAV.map(({ label, href }) => (
+            <ul className="hidden list-none items-center gap-7 md:flex" role="list">
+              {t.nav.links.map(({ label, href }) => (
                 <li key={href}>
                   <a
                     href={href}
-                    className="
-                      text-sm font-medium text-muted transition-colors duration-200
-                      hover:text-ink
-                    "
+                    className="text-sm font-medium text-muted transition-colors duration-200 hover:text-ink"
                   >
                     {label}
                   </a>
@@ -145,35 +126,39 @@ export default function Navbar() {
               ))}
             </ul>
 
-            {/* Desktop CTA */}
-            <div className="hidden md:flex">
+            {/* Desktop: bahasa + CTA */}
+            <div className="hidden items-center gap-3 md:flex">
+              <LanguageToggle />
               <a
                 href={WA_HREF}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Konsultasi gratis via WhatsApp (buka tab baru)"
+                aria-label={t.hero.waAria}
                 className="
                   inline-flex items-center gap-2 rounded px-4 py-2 text-[13.5px] font-semibold
                   bg-accent text-accent-ink
                   transition-all duration-200 hover:bg-accent-hover hover:-translate-y-px
                 "
               >
-                Kontak
+                {t.nav.cta}
               </a>
             </div>
 
-            {/* Mobile hamburger */}
-            <button
-              className="rounded p-2 text-ink transition-colors hover:bg-accent-soft md:hidden"
-              onClick={() => setOpen((v) => !v)}
-              aria-label={open ? "Tutup menu" : "Buka menu"}
-              aria-expanded={open}
-              aria-controls="mobile-drawer"
-            >
-              {open
-                ? <X size={20} strokeWidth={2} aria-hidden />
-                : <Menu size={20} strokeWidth={2} aria-hidden />}
-            </button>
+            {/* Mobile: bahasa + hamburger */}
+            <div className="flex items-center gap-2 md:hidden">
+              <LanguageToggle size="sm" />
+              <button
+                className="rounded p-2 text-ink transition-colors hover:bg-accent-soft"
+                onClick={() => setOpen((v) => !v)}
+                aria-label={open ? t.nav.closeMenu : t.nav.openMenu}
+                aria-expanded={open}
+                aria-controls="mobile-drawer"
+              >
+                {open
+                  ? <X size={20} strokeWidth={2} aria-hidden />
+                  : <Menu size={20} strokeWidth={2} aria-hidden />}
+              </button>
+            </div>
           </div>
         </nav>
       </header>
@@ -195,7 +180,7 @@ export default function Navbar() {
         id="mobile-drawer"
         role="dialog"
         aria-modal="true"
-        aria-label="Menu navigasi"
+        aria-label={t.nav.drawerLabel}
         className={`
           fixed right-0 top-0 z-50 flex h-full w-[min(72vw,300px)] flex-col bg-surface md:hidden
           transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]
@@ -208,7 +193,7 @@ export default function Navbar() {
           <LogoText />
           <button
             onClick={() => setOpen(false)}
-            aria-label="Tutup menu"
+            aria-label={t.nav.closeMenu}
             className="rounded p-2 text-faint transition-colors hover:bg-accent-soft hover:text-ink"
           >
             <X size={18} strokeWidth={2} aria-hidden />
@@ -216,8 +201,8 @@ export default function Navbar() {
         </div>
 
         {/* Drawer links */}
-        <nav aria-label="Menu mobile" className="flex flex-1 flex-col gap-0.5 overflow-y-auto px-3 py-4">
-          {NAV.map(({ label, href }, i) => (
+        <nav aria-label={t.nav.drawerNavLabel} className="flex flex-1 flex-col gap-0.5 overflow-y-auto px-3 py-4">
+          {t.nav.links.map(({ label, href }, i) => (
             <a
               key={href}
               href={href}
@@ -228,26 +213,32 @@ export default function Navbar() {
               "
             >
               <span aria-hidden className="font-mono text-[11px] text-faint">
-                0{i + 1}
+                {String(i + 1).padStart(2, "0")}
               </span>
               {label}
             </a>
           ))}
         </nav>
 
-        {/* Drawer footer CTA */}
+        {/* Drawer footer: toggle bahasa + CTA */}
         <div className="flex-shrink-0 border-t border-line px-4 pb-8 pt-4">
+          <div className="mb-3 flex items-center justify-between">
+            <LanguageToggle size="sm" />
+            <span aria-hidden className="font-mono text-[10px] uppercase tracking-[0.12em] text-faint">
+              {t.nav.drawerNote}
+            </span>
+          </div>
           <a
             href={WA_HREF}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Konsultasi gratis via WhatsApp (buka tab baru)"
+            aria-label={t.hero.waAria}
             className="
               flex w-full items-center justify-center gap-2 rounded bg-accent py-3 text-sm font-semibold text-accent-ink
               transition-colors hover:bg-accent-hover
             "
           >
-            Konsultasi Gratis
+            {t.nav.drawerCta}
           </a>
         </div>
       </div>

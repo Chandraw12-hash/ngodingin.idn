@@ -3,41 +3,7 @@
 import { useState, useCallback, memo } from "react";
 import Reveal from "../ui/Reveal";
 import SectionHeader from "../ui/SectionHeader";
-
-// ─────────────────────────────────────────────────────────────────────────────
-// DATA
-// ─────────────────────────────────────────────────────────────────────────────
-
-const faqs = [
-  {
-    q: "Berapa lama website selesai?",
-    a: "Tergantung paket yang dipilih. Paket Mahasiswa selesai dalam 1 minggu, paket Standar dan Profesional dalam 2 minggu. Durasi bisa lebih cepat tergantung kelengkapan materi dari kamu.",
-  },
-  {
-    q: "Apakah bisa cicil atau nego harga?",
-    a: "Bisa. Khusus paket Mahasiswa harga sangat fleksibel dan bisa cicil. Untuk paket lain silakan konsultasi dulu via WhatsApp — kami terbuka untuk diskusi.",
-  },
-  {
-    q: "Revisi itu maksudnya gimana?",
-    a: "Revisi adalah perubahan desain atau konten setelah website selesai dibuat. Jumlah revisi sesuai paket — Mahasiswa 2x, Standar 3x, Profesional unlimited. Satu sesi revisi bisa mencakup beberapa perubahan sekaligus.",
-  },
-  {
-    q: "Apakah saya perlu menyiapkan materi sendiri?",
-    a: "Iya, kamu perlu menyiapkan teks konten, foto, dan logo bisnis kamu. Kami akan bantu susun dan desainnya. Kalau belum punya foto, kami bisa bantu cari alternatif foto dari library gratis.",
-  },
-  {
-    q: "Domain dan hosting diurus sendiri atau bantu setup?",
-    a: "Kami bantu setup semuanya dari awal sampai website live. Paket Standar dan Profesional sudah termasuk domain dan hosting 1 tahun. Paket Mahasiswa bisa ditambahkan dengan biaya terpisah.",
-  },
-  {
-    q: "Setelah website jadi, siapa yang maintenance?",
-    a: "Kami menyediakan support pasca-launch via WhatsApp. Untuk update konten kecil-kecilan biasanya bisa kami bantu gratis. Untuk perubahan besar bisa didiskusikan terpisah.",
-  },
-  {
-    q: "Teknologi apa yang dipakai?",
-    a: "Kami pakai Next.js atau Laravel tergantung kebutuhan. Semua website dioptimasi untuk kecepatan loading, SEO dasar, dan tampil sempurna di semua perangkat.",
-  },
-] as const;
+import { useLang } from "../../../lib/i18n";
 
 // ⚠️ Ganti dengan nomor WA asli sebelum deploy!
 const WA_HREF =
@@ -118,6 +84,9 @@ const FaqItem = memo(function FaqItem({ q, a, open, onToggle, index }: FaqItemPr
 // ─────────────────────────────────────────────────────────────────────────────
 
 export default function FAQ() {
+  const { t } = useLang();
+  const f = t.faq;
+
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const handleToggle = useCallback(
@@ -128,25 +97,25 @@ export default function FAQ() {
   return (
     <section
       id="faq"
-      aria-labelledby="faq-heading"
+      aria-labelledby={f.headingId}
       className="border-t border-line bg-bg"
     >
       <div className="mx-auto max-w-site px-5 py-16 md:px-8 md:py-24">
 
         <Reveal>
           <SectionHeader
-            id="faq-heading"
-            num="06"
-            kicker="FAQ"
-            title="Pertanyaan yang sering ditanyakan."
-            subtitle="Tidak menemukan jawaban yang kamu cari? Langsung tanya via WhatsApp."
+            id={f.headingId}
+            num={f.num}
+            kicker={f.kicker}
+            title={f.title}
+            subtitle={f.subtitle}
           />
         </Reveal>
 
         {/* FAQ List — satu kolom, garis pemisah */}
         <Reveal delay={80}>
-          <div className="border-t border-line" role="list" aria-label="Daftar pertanyaan">
-            {faqs.map((faq, i) => (
+          <div className="border-t border-line" role="list" aria-label={f.listLabel}>
+            {f.items.map((faq, i) => (
               <div key={faq.q} role="listitem">
                 <FaqItem
                   q={faq.q}
@@ -167,13 +136,13 @@ export default function FAQ() {
               href={WA_HREF}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Tanya via WhatsApp (buka tab baru)"
+              aria-label={f.ctaAria}
               className="
                 inline-flex items-center gap-2 rounded px-5 py-3 text-[15px] font-semibold
                 bg-accent text-accent-ink transition-all duration-200 hover:bg-accent-hover hover:-translate-y-px
               "
             >
-              Tanya via WhatsApp
+              {f.cta}
             </a>
           </div>
         </Reveal>

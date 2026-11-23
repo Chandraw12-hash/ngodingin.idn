@@ -3,26 +3,17 @@
 import { memo } from "react";
 import Reveal from "../ui/Reveal";
 import SectionHeader from "../ui/SectionHeader";
+import { useLang } from "../../../lib/i18n";
 
-// ─────────────────────────────────────────────────────────────────────────────
-// DATA
-// ─────────────────────────────────────────────────────────────────────────────
-
+// ⚠️ Ganti dengan nomor WA asli sebelum deploy!
 const WA_HREF =
   "https://wa.me/6282319216326?text=Halo%2C%20saya%20ingin%20konsultasi%20gratis";
 
-const values = [
-  { title: "Terpercaya",  desc: "Dipercaya klien UMKM & instansi di Indonesia" },
-  { title: "Tepat Waktu", desc: "Pengerjaan sesuai deadline yang disepakati" },
-  { title: "Fullstack",   desc: "End-to-end, dari desain sampai deploy" },
-  { title: "Berkualitas", desc: "Kode bersih dan terstruktur dengan baik" },
-] as const;
-
-const stats = [
-  { n: "8+",   label: "Project selesai" },
-  { n: "100%", label: "Klien puas" },
-  { n: "≤14",  label: "Hari pengerjaan" },
-  { n: "24/7", label: "Dukungan" },
+const STATS = [
+  { n: "8+" },
+  { n: "100%" },
+  { n: "≤14" },
+  { n: "24/7" },
 ] as const;
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -32,7 +23,10 @@ const stats = [
 const ValueRow = memo(function ValueRow({
   title,
   desc,
-}: (typeof values)[number]) {
+}: {
+  title: string;
+  desc: string;
+}) {
   return (
     <div className="grid grid-cols-1 gap-1 border-b border-line py-4 sm:grid-cols-[160px_1fr] sm:gap-4">
       <h4 className="text-[15px] font-semibold text-ink">{title}</h4>
@@ -46,21 +40,24 @@ const ValueRow = memo(function ValueRow({
 // ─────────────────────────────────────────────────────────────────────────────
 
 export default function About() {
+  const { t } = useLang();
+  const a = t.about;
+
   return (
     <section
       id="tentang"
-      aria-labelledby="about-heading"
+      aria-labelledby={a.headingId}
       className="border-t border-line bg-bg"
     >
       <div className="mx-auto max-w-site px-5 py-16 md:px-8 md:py-24">
 
         <Reveal>
           <SectionHeader
-            id="about-heading"
-            num="07"
-            kicker="Tentang"
-            title="Partner digital untuk UMKM."
-            subtitle="Kami percaya setiap bisnis berhak punya website profesional — tanpa mahal, tanpa ribet."
+            id={a.headingId}
+            num={a.num}
+            kicker={a.kicker}
+            title={a.title}
+            subtitle={a.subtitle}
           />
         </Reveal>
 
@@ -71,17 +68,9 @@ export default function About() {
           <Reveal delay={60}>
             <div className="max-w-[68ch]">
               <p className="text-[15px] leading-[1.85] text-muted">
-                <strong className="font-semibold text-ink">ngodingin.id</strong> hadir
-                sebagai solusi pembuatan website untuk UMKM Indonesia yang ingin naik
-                kelas. Setiap project ditangani secara fullstack — dari desain
-                antarmuka, pengembangan sistem, hingga deploy ke server — dengan
-                komunikasi langsung tanpa perantara.
+                {a.p1}
               </p>
-              <p className="mt-4 text-[15px] leading-[1.85] text-muted">
-                Dari company profile, landing page, hingga website resmi sekolah dan
-                instansi — kami siap membantu bisnis Anda tampil lebih profesional
-                dan menjangkau lebih banyak pelanggan.
-              </p>
+              <p className="mt-4 text-[15px] leading-[1.85] text-muted">{a.p2}</p>
 
               {/* CTAs */}
               <div className="mt-8 flex flex-wrap gap-3.5">
@@ -89,23 +78,23 @@ export default function About() {
                   href="#harga"
                   className="
                     inline-flex items-center rounded bg-accent px-5 py-3 text-[15px] font-semibold text-accent-ink
-                    transition-all duration-200 hover:bg-accent-hover hover:-translate-y-px
+                    transition-all duration-200 hover:-translate-y-px hover:bg-accent-hover
                   "
                 >
-                  Lihat Paket
+                  {a.cta1}
                 </a>
                 <a
                   href={WA_HREF}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="Konsultasi gratis via WhatsApp (buka tab baru)"
+                  aria-label={a.cta2Aria}
                   className="
                     inline-flex items-center rounded border border-line px-5 py-3
                     text-[15px] font-semibold text-ink transition-all duration-200
-                    hover:border-accent hover:text-accent hover:-translate-y-px
+                    hover:-translate-y-px hover:border-accent hover:text-accent
                   "
                 >
-                  Konsultasi Gratis
+                  {a.cta2}
                 </a>
               </div>
             </div>
@@ -115,9 +104,9 @@ export default function About() {
           <Reveal delay={120}>
             <div className="border-t border-line">
               <p aria-hidden className="py-4 font-mono text-[11px] uppercase tracking-[0.14em] text-faint">
-                Kenapa kami
+                {a.whyLabel}
               </p>
-              {values.map((item) => (
+              {a.values.map((item) => (
                 <ValueRow key={item.title} {...item} />
               ))}
             </div>
@@ -125,20 +114,20 @@ export default function About() {
 
         </div>
 
-        {/* Stats — grid angka serif */}
+        {/* Stats — angka serif */}
         <Reveal delay={80}>
           <ul
             className="mt-16 grid grid-cols-2 gap-x-8 gap-y-8 border-t border-line pt-10 md:grid-cols-4"
             role="list"
-            aria-label="Statistik kami"
+            aria-label={a.statsAria}
           >
-            {stats.map(({ n, label }) => (
-              <li key={label} role="listitem" aria-label={`${n} ${label}`}>
+            {STATS.map(({ n }, i) => (
+              <li key={n} role="listitem" aria-label={`${n} ${a.stats[i].label}`}>
                 <p className="text-3xl text-accent md:text-4xl" aria-hidden>
                   {n}
                 </p>
                 <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.12em] text-faint" aria-hidden>
-                  {label}
+                  {a.stats[i].label}
                 </p>
               </li>
             ))}

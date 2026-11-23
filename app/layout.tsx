@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins, Fraunces, JetBrains_Mono } from "next/font/google";
+import { LanguageProvider } from "../lib/i18n";
 import "./globals.css";
 
 // Body — Poppins (sama dengan portfolio)
@@ -47,7 +48,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id" className={`${poppins.variable} ${fraunces.variable} ${monoFont.variable}`}>
-      <body>{children}</body>
+      <body>
+        <LanguageProvider>{children}</LanguageProvider>
+      </body>
     </html>
   );
 }
